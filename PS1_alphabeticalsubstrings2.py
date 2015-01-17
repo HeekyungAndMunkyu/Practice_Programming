@@ -53,6 +53,7 @@ while len(s) > len(longest):
 	print 'longest:', longest, 'challenger:', longestChallenger	
 	if len(longest) < len(longestChallenger):
 		longest = longestChallenger
-
+	elif len(s) <= len(longest):
+		break
 print 'Longest substring in alphabetical order is:', longest
 	
