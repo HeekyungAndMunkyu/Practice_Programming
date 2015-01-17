@@ -31,8 +31,8 @@ def alphastr(s):
 			endPoint = t
 			break
 
-	if substr[-1] <= s[endPoint+1]:
-		substr = substr + s[-1]
+	if substr[-1] <= s[len(substr)]:
+		substr = substr + s[len(substr)]
 
 	return substr
 
