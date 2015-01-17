@@ -54,5 +54,5 @@ while len(s) > len(longest):
 	if len(longest) < len(longestChallenger):
 		longest = longestChallenger
 
-print 'answer = ', longest
+print 'Longest substring in alphabetical order is:', longest
 	
