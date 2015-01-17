@@ -9,7 +9,7 @@ def alphastr(s):
 	'''
 
 	startingPoint = 0
-	endPoint = 0
+	endPoint = -1
 	substr = ''
 
 	#find the starting point
@@ -43,11 +43,14 @@ s = raw_input('enter a string: ')
 
 longest = alphastr(s)
 
+print 'first longest:', longest
 
 while len(s) > len(longest):
 	s = s[len(longest):]
 	longestChallenger = alphastr(s)
-	
+
+
+	print 'longest:', longest, 'challenger:', longestChallenger	
 	if len(longest) < len(longestChallenger):
 		longest = longestChallenger
 
