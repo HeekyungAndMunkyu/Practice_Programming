@@ -46,7 +46,7 @@ longest = alphastr(s)
 print 'first longest:', longest
 
 while len(s) > len(longest):
-	s = s[len(longest):]
+	s = s[len(longest)+1:]
 		
 	print 's =', s
 	longestChallenger = alphastr(s)
