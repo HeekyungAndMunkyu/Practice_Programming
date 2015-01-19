@@ -46,10 +46,18 @@ longest = alphastr(s)
 print 'first longest:', longest
 
 while len(s) > len(longest):
+
+
+	# slicing s to find the next longest challneger
 	if longest in s:
 
-		s = s[len(longest) + 1:]
-		
+		s = s[len(longest):]
+
+        elif len(longest) == len(longestChallenger):
+                s = s[len(longestChallenger):]
+                print 'adjusted s when  == is', s
+	
+	
 	print 's =', s
 	longestChallenger = alphastr(s)
 
@@ -58,9 +66,6 @@ while len(s) > len(longest):
 	if len(longest) < len(longestChallenger):
 		longest = longestChallenger
 
-	elif len(longest) == len(longestChallenger):
-		s = s[len(longestChallenger)+1:]
-		print 'adjusted s when  == is', s
 
 
 print 'Longest substring in alphabetical order is:', longest
