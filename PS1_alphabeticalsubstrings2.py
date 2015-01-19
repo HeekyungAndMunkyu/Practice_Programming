@@ -35,17 +35,18 @@ def alphastr(s):
 	if substr[-1] <= s[len(substr)]:
 		substr = substr + s[len(substr)]
 
-	return substr
+#	return substr
 	return endPoint
 
 s = raw_input('enter a string: ')
 
 
 
-longest, endPoint = alphastr(s)
+#longest, endPoint = alphastr(s)
 longestChallenger = ''
 
-print 'first longest:', longest
+print alphastr(s)
+print 'first longest:', longest, 'endPoint:', endPoint, type(endPoint)
 
 while len(s) > len(longest):
 
