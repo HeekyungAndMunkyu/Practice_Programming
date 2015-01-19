@@ -52,7 +52,8 @@ while len(s) > len(longest):
 
 	# slicing s to find the next longest challneger
 	s = s[endPoint + 1:]
-
+	if len(s) <= 1:
+		break
 	print 's =', s
 	longestChallenger, endPoint = alphastr(s)
 
