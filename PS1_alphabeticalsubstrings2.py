@@ -47,18 +47,16 @@ longestChallenger = ''
 print alphastr(s)
 print 'first longest:', longest, 'endPoint:', endPoint, type(endPoint)
 
-#while len(s) > len(longest):
+while len(s) > len(longest):
 
 
 	# slicing s to find the next longest challneger
-	if longest in s:
-
-		s = s[endPoint + 1:]
+	s = s[endPoint + 1:]
 
 	print 's =', s
 	longestChallenger, endPoint = alphastr(s)
 
-        print 'longest:', longest, 'challenger:', longestChallenger
+	print 'longest:', longest, 'challenger:', longestChallenger
 
 	if len(longest) < len(longestChallenger):
 		longest = longestChallenger
