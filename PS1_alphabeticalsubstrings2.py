@@ -26,22 +26,24 @@ def alphastr(s):
 	#find the end point
 	for t in range(len(s) - 1):
 		substr = substr + s[t]
-
 		if s[t] > s[t+1]:
 			endPoint = t
 			break
+		else:
+			endPoint = t + 1
 
 	if substr[-1] <= s[len(substr)]:
 		substr = substr + s[len(substr)]
 
 	return substr
-
+	return endPoint
 
 s = raw_input('enter a string: ')
 
 
 
-longest = alphastr(s)
+longest, endPoint = alphastr(s)
+longestChallenger = ''
 
 print 'first longest:', longest
 
@@ -51,15 +53,10 @@ while len(s) > len(longest):
 	# slicing s to find the next longest challneger
 	if longest in s:
 
-		s = s[len(longest):]
+		s = s[endPoint + 1:]
 
-        elif len(longest) == len(longestChallenger):
-                s = s[len(longestChallenger):]
-                print 'adjusted s when  == is', s
-	
-	
 	print 's =', s
-	longestChallenger = alphastr(s)
+	longestChallenger, endPoint = alphastr(s)
 
         print 'longest:', longest, 'challenger:', longestChallenger
 
