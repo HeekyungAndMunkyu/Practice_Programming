@@ -47,7 +47,7 @@ longestChallenger = ''
 print alphastr(s)
 print 'first longest:', longest, 'endPoint:', endPoint, type(endPoint)
 
-while len(s) > len(longest):
+#while len(s) > len(longest):
 
 
 	# slicing s to find the next longest challneger
