@@ -5,8 +5,7 @@ def break_words(stuff):
 	words = stuff.split(' ')
 	return words
 
-d
-ef sort_words(words):
+def sort_words(words):
 	"""It sorts words."""
 	return sorted(words)
 
