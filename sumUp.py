@@ -108,4 +108,4 @@ total = 0
 for i in range(100):
     total = total + int(numbers[i])
 
-print total
+print str(total)[:10]
