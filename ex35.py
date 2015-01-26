@@ -8,15 +8,15 @@ def gold_room():
     '''
     print "This is a room full of gold. How much do you want?"
 
-    next = raw_input('>')
+    next = int(raw_input('>'))
 
     # the first question
     # if 0 or 1 included, go to the next question
-    if "0" in next or "1" in next:
-        how_much = int(next)
+#    if "0" in next or "1" in next:
+#        how_much = int(next)
     # if not, you're dead.
-    else:
-        dead("Man, first learn how to count.")
+#    else:
+#        dead("Man, first learn how to count.")
 
     # the second question
     if how_much < 50:
