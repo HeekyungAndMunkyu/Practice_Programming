@@ -19,7 +19,7 @@ def updateHand(hand, word):
     """
     # TO DO ... <-- Remove this comment when you code this function
 
-    result = hand[:]
+    result = hand.copy()
 
     for letter in word:
         if letter in result.keys():
