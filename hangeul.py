@@ -1,2 +1,2 @@
-# -*- coding: ansi949 -*-
-print "안녕"
+# -*- coding: utf-8 -*-
+print u"안녕"
