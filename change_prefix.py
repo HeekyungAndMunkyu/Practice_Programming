@@ -6,7 +6,7 @@ import os
 
     >$python change_prefix.py [before_prefix] [after refix]
 
-    And Here is sample sinario
+    And Here is sample scenario
 
     $ ls ~/Workspace/python
         ex_12.py ex_24.py
