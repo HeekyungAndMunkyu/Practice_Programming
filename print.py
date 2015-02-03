@@ -1,14 +1,15 @@
 def printLove():
     print "Love"
 
+print
 print 'without print'
 printLove()
 
-print ''
+print
 print 'with print'
 print printLove()
 
-print ''
+print 
 print 'assign'
 t = printLove()
 print t

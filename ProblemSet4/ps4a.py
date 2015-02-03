@@ -159,14 +159,11 @@ def updateHand(hand, word):
     hand: dictionary (string -> int)
     returns: dictionary (string -> int)
     """
-    # TO DO ... <-- Remove this comment when you code this function
-
     result = hand.copy()
 
     for letter in word:
         if letter in result.keys():
             result[letter] = result.get(letter, 0) - 1
-
     return result
 
 
@@ -184,16 +181,14 @@ def isValidWord(word, hand, wordList):
     hand: dictionary (string -> int)
     wordList: list of lowercase strings
     """
-    # TO DO ... <-- Remove this comment when you code this function
-    # word in hand
-    result = True
+    result = True # easier to prove 'False'
 
+    # Test 1: word in hand
     for letter in word:
         if getFrequencyDict(word).get(letter, 0) > hand.get(letter, 0):
-#            print getFrequencyDict(word), hand
             result = False
 
-    # word in wordList
+    # Test 2: word in wordList
     if word not in wordList:
         result = False
 
@@ -210,13 +205,10 @@ def calculateHandlen(hand):
     hand: dictionary (string-> int)
     returns: integer
     """
-    # TO DO... <-- Remove this comment when you code this function
-
     result = 0
 
     for key in hand:
         result += hand.get(key, 0)
-
     return result
 
 
@@ -252,7 +244,7 @@ def playHand(hand, wordList, n):
         displayHand(hand) # type(displayHand(hand)) == None, when print, prints None
 
         # 2) Ask user for input
-        word = raw_input('Enter word, or a "." to indicate that you are finished: ')
+        word = raw_input('Enter word, or a "." to indicate that you are finished>> ')
 
         # 2-1) a single period
         if word == ".":
@@ -264,7 +256,6 @@ def playHand(hand, wordList, n):
             if isValidWord(word, hand, wordList) == False:
                 # Reject invalid word (print a message followed by a blank line)
                 print 'Invalid word, please try again.'
-                print ''
             # 2-2-2) valid
             else:
                 # word, points earned, total score
@@ -272,7 +263,7 @@ def playHand(hand, wordList, n):
                 print '"%s" earned %d points. Total: %d points ' % (word, getWordScore(word, n), totalScore)
                 # Update the hand
                 hand = updateHand(hand, word)
-
+        print
     # Game is over (user entered a '.' or ran out of letters)
     print 'Run out of letters. Total score: %d points.' % totalScore
 
@@ -299,10 +290,18 @@ def playGame(wordList):
     # Allow the user to play an arbitrary number of hands.
     while True:
         # 1) Asks the user to input 'n' or 'r' or 'e'.
-        userInput = raw_input('Enter n to deal a new hand, r to replay the last hand, or e to end game: ')
+        print
+        print
+        print
+        print '[Welcome]'
+        print
+        userInput = raw_input('Enter n to deal a new hand, r to replay the last hand, or e to end game >> ')
 
         # 1-1) a new hand
         if userInput == 'n':
+            print
+            print '    [New Hand]'
+            print
             hand = dealHand(n)
             playHand(hand, wordList, n)
         # 1-2) the last hand
@@ -310,6 +309,9 @@ def playGame(wordList):
             if hand == {}:
                 print 'You have not played a hand yet. Please play a new hand first!'
             else:
+                print
+                print '    [Last Hand]'
+                print
                 playHand(hand, wordList, n)
         # 1-3) exit
         elif userInput == 'e':
@@ -329,5 +331,9 @@ def playGame(wordList):
 # Build data structures used for entire session and play game
 #
 if __name__ == '__main__':
+#    print __name__, type(__name__)
     wordList = loadWords()
+    print
+    print '[[ Game Start! ]]'
+    print
     playGame(wordList)
