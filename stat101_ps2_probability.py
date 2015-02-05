@@ -17,6 +17,8 @@ def nextHead(probs, flips):
         print 'num', prob
         numerator += (1.0 / len(probs)) * coinFlip(prob, flips) * prob
         print numerator
+
+
     print '-----denominator-----'
     denominator = 0
 
