@@ -3,7 +3,21 @@
 
 def spiralNumber(row, col):
     '''
-    return: prints
+    row: int >= 1, row
+    col: int >= 1, columm
+
+    return: prints numbers from 0 to (row * col - 1) in a sprial fashion
+
+        ex)
+        row = 6, col = 6
+
+        0   1   2   3   4   5
+        19  20  21  22  23   6
+        18  31  32  33  24   7
+        17  30  35  34  25   8
+        16  29  28  27  26   9
+        15  14  13  12  11  10
+
     '''
 
     # make a tuple list
@@ -12,7 +26,7 @@ def spiralNumber(row, col):
     # merge the tuple list and the number list into a dictionary
 
     # print out the dictionary in a spiral fashion
-    printNum(intoDict(intoTuple(row, col)), row)
+    printNum(intoDict(intoTuple(row, col)), row, col)
 
 def intoTuple(row, col):
     '''
@@ -69,6 +83,13 @@ def intoTuple(row, col):
 
 def tupGenRowFixed(lastRow, lastCol, colDif, keyList, increasing):
     '''
+    lastRow: int, the last row index
+    lastCol: int, the last columm index
+    colDif: int, difference to be made
+    keyList: list, of positions as keys
+    increasing: bool
+
+    return: lastRow, lastCol, keyList (modified)
     '''
     print 'lastRow =  ', lastRow, '  lastCol=  ', lastCol, '  colDif =  ', colDif
     for i in range(colDif):
@@ -102,9 +123,9 @@ def tupGenColFixed(lastRow, lastCol, rowDif, keyList, increasing):
 
 def intoDict(keyList):
     '''
-    keyList: a list, of positions as keys
+    keyList: list, of positions as keys
 
-    returns: a dict, of positions as keys and numbers as values
+    returns: dict, of positions as keys and numbers as values
     '''
     numDict = {}
 
@@ -113,15 +134,29 @@ def intoDict(keyList):
 
     return numDict
 
-def printNum(numDict, row):
+def printNum(numDict, row, col):
     '''
-    return: prints
+    numDict: dict
+    row: int >= 1
+    col: int>= 1
+
+    return: prints the dictionary's values in a spiral fashion
     '''
-#    for i in range(row):
-#        print numDict[(i, *)]
+    for i in range(row):
+        print '  '.join([str(numDict[(i, j)]) for j in range(col)])
+
+
+
+
+
+
+
+
+
+
+
 
 row = int(raw_input('row:  '))
 col = int(raw_input('columm:  '))
 
-for i in range(row):
-    print intoTuple(row, col)[i:i+col]
+spiralNumber(row, col)
