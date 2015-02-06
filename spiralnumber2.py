@@ -73,10 +73,12 @@ def intoTuple(row, col):
             colDif = colDifList.pop(0)
             # columm index in increasing order (left -> right)
             if increasing:
-                lastRow, lastCol, keyList = tupGenRowFixed(lastRow, lastCol, colDif, keyList, increasing)
+                lastRow, lastCol, keyList = tupGenRowFixed(lastRow, lastCol,
+                colDif, keyList, increasing)
             # columm index in decreasing order (right -> left)
             else:
-                lastRow, lastCol, keyList = tupGenRowFixed(lastRow, lastCol, colDif, keyList, increasing)
+                lastRow, lastCol, keyList = tupGenRowFixed(lastRow, lastCol,
+                colDif, keyList, increasing)
             rowFixed = False
         # when columm index is fixed
         else:
@@ -84,11 +86,13 @@ def intoTuple(row, col):
             rowDif = rowDifList.pop(0)
             # row index in increasing order (top -> bottom)
             if increasing:
-                lastRow, lastCol, keyList = tupGenColFixed(lastRow, lastCol, rowDif, keyList, increasing)
+                lastRow, lastCol, keyList = tupGenColFixed(lastRow, lastCol,
+                rowDif, keyList, increasing)
                 increasing = False
             # row index in decreasing order (bottom -> top)
             else:
-                lastRow, lastCol, keyList = tupGenColFixed(lastRow, lastCol, rowDif, keyList, increasing)
+                lastRow, lastCol, keyList = tupGenColFixed(lastRow, lastCol,
+                rowDif, keyList, increasing)
                 increasing = True
             rowFixed = True
     return keyList
