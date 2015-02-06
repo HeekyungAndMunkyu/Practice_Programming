@@ -173,7 +173,6 @@ def printNum(numDict, row, col):
 
 
 
-row = int(raw_input('row:  '))
-col = int(raw_input('columm:  '))
+row, col = [int(i) for i in raw_input('row columm:  ').split()]
 
 spiralNumber(row, col)
