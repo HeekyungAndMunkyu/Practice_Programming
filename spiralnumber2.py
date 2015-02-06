@@ -19,37 +19,50 @@ def spiralNumber(row, col):
         15  14  13  12  11  10
 
     '''
-
-    # make a tuple list
-
-
-    # merge the tuple list and the number list into a dictionary
-
-    # print out the dictionary in a spiral fashion
+    # 1 make a tuple list
+    # 2 make the tuple list into dictionary with number values assigned
+    # 3 print out the dictionary in a spiral fashion
     printNum(intoDict(intoTuple(row, col)), row, col)
+
+
 
 def intoTuple(row, col):
     '''
+    row: int >= 1, row
+    col: int >= 1, columm
+
+        the index tuple changes in a way that only one of the index is changing
+        while the other is fixed (for example, while row index is fixed, only
+        columm index changes)
+
+        when generating tuples of index, tuples sharing the fixed index, either
+        row or columm, are generated together within the same function. When
+        visualized, those tuple groups consitute rows and columms.
 
     return: a tuple, of positions as keys
         len(intoTupe(row, col)) = row * col
     '''
+
     # into the biggest index numbers
     rowIndex = row - 1
     colIndex = col - 1
 
-    rowFixed = True # False: columm fixed
-    increasing = True # False: decreasing
-
-    lastRow = 0
-    lastCol = -1
-
+    # result
     keyList = []
 
+    # last position index
+    lastRow = 0
+    lastCol = -1    # adjusted for first time call to tupGenRowFixed
+
+    # difference to be added while one of the index is fixed
     rowDifList = range(rowIndex, -1, -1)
     colDifList = range(colIndex + 1, -1, -1)
     rowDif = 0
     colDif = 0
+
+    # branching variables
+    rowFixed = True # False: columm fixed
+    increasing = True # False: decreasing
 
     print 'rowDifList:', rowDifList, '       colDifList:', colDifList
 
