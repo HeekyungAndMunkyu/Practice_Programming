@@ -1,5 +1,5 @@
-# make tuple list and number list separately
-# and merge into a dictionary
+# A program that takes the dimensions of an MxN array,
+# and fills it with a sequence in the spiral fashion.
 
 def spiralNumber(row, col):
     '''
@@ -41,6 +41,10 @@ def intoTuple(row, col):
 
     return: a tuple, of positions as keys
         len(intoTupe(row, col)) = row * col
+
+        ex)
+        row = 1, col = 3
+        [(0,0), (0,1), (0,2)]
     '''
 
     # into the biggest index numbers
@@ -100,13 +104,18 @@ def intoTuple(row, col):
 
 def tupGenRowFixed(lastRow, lastCol, colDif, keyList, increasing):
     '''
-    lastRow: int, the last row index
-    lastCol: int, the last columm index
-    colDif: int, difference to be made
+    lastRow: int, the last tuple's row index
+    lastCol: int, the last tuple's columm index
+    colDif: int, difference to be added or subtracted
     keyList: list, of positions as keys
     increasing: bool
 
-    return: lastRow, lastCol, keyList (modified)
+        This function appends a row of tuples with the same row index
+
+    return: lastRow, lastCol, keyList
+        lastRow: lastRow
+        lastCol: lastCol +/- colDif
+        keyList: a row of tuples with the same row index appended
     '''
     print 'lastRow =  ', lastRow, '  lastCol=  ', lastCol, '  colDif =  ', colDif
     for i in range(colDif):
@@ -122,8 +131,21 @@ def tupGenRowFixed(lastRow, lastCol, colDif, keyList, increasing):
     print keyList
     return lastRow, lastCol, keyList
 
+
 def tupGenColFixed(lastRow, lastCol, rowDif, keyList, increasing):
     '''
+    lastRow: int, the last tuple's row index
+    lastCol: int, the last tuple's columm index
+    rowDif: int, difference to be added or subtracted
+    keyList: list, of positions as keys
+    increasing: bool
+
+        This function appends a columm of tuples with the same columm index
+
+    return: lastRow, lastCol, keyList
+        lastRow: lastRow +/- rowDif
+        lastCol: lastCol
+        keyList: a columm of tuples with the same row index appended
     '''
     print 'lastRow =  ', lastRow, '  lastCol=  ', lastCol, '  rowDif =  ', rowDif
     for i in range(rowDif):
@@ -138,11 +160,16 @@ def tupGenColFixed(lastRow, lastCol, rowDif, keyList, increasing):
     print keyList
     return lastRow, lastCol, keyList
 
+
 def intoDict(keyList):
     '''
     keyList: list, of positions as keys
 
     returns: dict, of positions as keys and numbers as values
+        ex)
+        row = 3, col = 1
+        {(0,0): '0', (0,1): '1', (0,2): '2'}
+
     '''
     numDict = {}
 
@@ -150,6 +177,7 @@ def intoDict(keyList):
         numDict[keyList[i]] = i
 
     return numDict
+
 
 def printNum(numDict, row, col):
     '''
@@ -173,6 +201,7 @@ def printNum(numDict, row, col):
 
 
 
-row, col = [int(i) for i in raw_input('row columm:  ').split()]
+row, col = [int(i) for i in raw_input('Please enter two integers (>= 1) separated\
+ by a whitespace (row columm):').split()]
 
 spiralNumber(row, col)
