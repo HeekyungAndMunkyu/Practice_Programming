@@ -167,16 +167,23 @@ def filterStories(stories, triggerlist):
     """
     # TODO: Problem 10
     # This is a placeholder (we're just returning all the stories, with no filtering)
-    filteredList = []
-    for story in stories:
-        print story
-        for trigger in triggerlist:
-            print trigger
-            if trigger.evaluate(story):
-                print trigger.evaluate(story)
-                if story not in filteredList:
-                    filteredList.append(story)
-        return filteredList
+#    filteredList = []
+#    for story in stories:
+#        print story
+#        for trigger in triggerlist:
+#            print trigger
+#            if trigger.evaluate(story):
+#                print trigger.evaluate(story)
+#                if story not in filteredList:
+#                    filteredList.append(story)
+#        return filteredList
+    filtered = []
+    for t in triggerlist:
+        for s in stories:
+            if t.evaluate(s) == True:
+                if s not in filtered:
+                    filtered.append(s)
+    return filtered
 
 #======================
 # Part 4
