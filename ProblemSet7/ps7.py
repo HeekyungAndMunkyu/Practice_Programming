@@ -57,7 +57,7 @@ class NewsStory(object):
 		self.summary = summary
 		self.link = link
 
-	
+
 	def getGuid(self):
 		return self.guid
 	def getTitle(self):
@@ -69,7 +69,7 @@ class NewsStory(object):
 	def getLink(self):
 		return self.link
 
-	
+
 
 
 
@@ -94,35 +94,65 @@ class Trigger(object):
 
 # TODO: WordTrigger
 class WordTrigger(Trigger):
-	def __init__(self, word):
-		super(WordTrigger, self).__init__()
-		self.word = word.lower()
-	
-	def isWordIn(self, text):
-		for punc in string.punctuation:
-			text.replace(punc, ' ')
-		return self.word in text.lower()
-		
+    def __init__(self, word):
+        super(WordTrigger, self).__init__()
+        self.word = word.lower()
+    def isWordIn(self, text):
+        for punc in string.punctuation:
+            text = text.replace(punc, ' ')
+
+        return self.word in text.lower().split()
+
 # TODO: TitleTrigger
 class TitleTrigger(WordTrigger):
-	
+    def evaluate(self, story):
+        return self.isWordIn(story.getTitle())
 # TODO: SubjectTrigger
+class SubjectTrigger(WordTrigger):
+    def evaluate(self, story):
+        return self.isWordIn(story.getSubject())
 # TODO: SummaryTrigger
-
+class SummaryTrigger(WordTrigger):
+    def evaluate(self, story):
+        return self.isWordIn(story.getSummary())
 
 # Composite Triggers
 # Problems 6-8
 
 # TODO: NotTrigger
+class NotTrigger(Trigger):
+    def __init__(self, triggerObject):
+        self.triggerObject = triggerObject
+    def evaluate(self, story):
+        return not self.triggerObject.evaluate(story)
 # TODO: AndTrigger
-# TODO: OrTrigger
+class AndTrigger(Trigger):
+    def __init__(self, trigger1, trigger2):
+        self.trigger1 = trigger1
+        self.trigger2 = trigger2
 
+    def evaluate(self, story):
+        return self.trigger1.evaluate(story) and self.trigger2.evaluate(story)
+# TODO: OrTrigger
+class OrTrigger(Trigger):
+    def __init__(self, trigger1, trigger2):
+        self.trigger1 = trigger1
+        self.trigger2 = trigger2
+
+    def evaluate(self, story):
+        return self.trigger1.evaluate(story) or self.trigger2.evaluate(story)
 
 # Phrase Trigger
 # Question 9
 
 # TODO: PhraseTrigger
+class PhraseTrigger(Trigger):
+    def __init__(self, word):
+        self.word = word
 
+    def evaluate(self, story):
+        return self.word in story.getSubject() or self.word in story.getTitle()\
+        or self.word in story.getSummary()
 
 #======================
 # Part 3
@@ -136,7 +166,8 @@ def filterStories(stories, triggerlist):
     Returns: a list of only the stories for which a trigger in triggerlist fires.
     """
     # TODO: Problem 10
-    # This is a placeholder (we're just returning all the stories, with no filtering) 
+    # This is a placeholder (we're just returning all the stories, with no filtering)
+    
     return stories
 
 #======================
@@ -200,7 +231,7 @@ def readTriggerConfig(filename):
                 triggers.append(triggerMap[name])
 
     return triggers
-    
+
 import thread
 
 SLEEPTIME = 60 #seconds -- how often we poll
@@ -216,7 +247,7 @@ def main_thread(master):
         t3 = PhraseTrigger("Election")
         t4 = OrTrigger(t2, t3)
         triggerlist = [t1, t4]
-        
+
         # TODO: Problem 11
         # After implementing makeTrigger, uncomment the line below:
         # triggerlist = readTriggerConfig("triggers.txt")
@@ -226,7 +257,7 @@ def main_thread(master):
         frame.pack(side=BOTTOM)
         scrollbar = Scrollbar(master)
         scrollbar.pack(side=RIGHT,fill=Y)
-        
+
         t = "Google & Yahoo Top News"
         title = StringVar()
         title.set(t)
@@ -277,4 +308,3 @@ if __name__ == '__main__':
     root.title("Some RSS parser")
     thread.start_new_thread(main_thread, (root,))
     root.mainloop()
-
