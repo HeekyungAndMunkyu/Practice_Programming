@@ -207,6 +207,17 @@ def makeTrigger(triggerMap, triggerType, params, name):
     """
     # TODO: Problem 11
 
+    # maps out triggerType(key) with trigger class(value)
+    triggerTypeToTriggerMap = {'TITLE':TitleTrigger, 'SUBJECT':SubjectTrigger,\
+     'SUMMARY':SummaryTrigger, 'NOT':NotTrigger, 'AND':AndTrigger, 'OR':OrTrigger,\
+     'PHRASE':PhraseTrigger}
+    # make newTrigger
+    newTrigger = triggerTypeToTriggerMap[triggerType](params[0], params[1])
+    # add to triggerMap
+    triggerMap[name] = newTrigger
+
+    return newTrigger
+
 
 def readTriggerConfig(filename):
     """
@@ -265,7 +276,7 @@ def main_thread(master):
 
         # TODO: Problem 11
         # After implementing makeTrigger, uncomment the line below:
-        # triggerlist = readTriggerConfig("triggers.txt")
+        triggerlist = readTriggerConfig("triggers.txt")
 
         # **** from here down is about drawing ****
         frame = Frame(master)
