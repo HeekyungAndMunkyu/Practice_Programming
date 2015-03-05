@@ -95,14 +95,17 @@ class Trigger(object):
 # TODO: WordTrigger
 class WordTrigger(Trigger):
 	def __init__(self, word):
-		self.word = word.string.lower()
+		super(WordTrigger, self).__init__()
+		self.word = word.lower()
 	
 	def isWordIn(self, text):
 		for punc in string.punctuation:
 			text.replace(punc, ' ')
-		return self.word in text.string.lower()
+		return self.word in text.lower()
 		
 # TODO: TitleTrigger
+class TitleTrigger(WordTrigger):
+	
 # TODO: SubjectTrigger
 # TODO: SummaryTrigger
 
