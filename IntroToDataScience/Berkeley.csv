@@ -1,0 +1,25 @@
+Admit,Gender,Dept,Freq,Total,Dept,Gender,Admission rate,,,,
+Admitted,Male,A,512,,A,Male,62%,,C+D,Male,0.347708895
+Rejected,Male,A,313,825,,Female,82%,,,Female,0.344008264
+Admitted,Female,A,89,,,,,,C+D+E,Male,0.333333333
+Rejected,Female,A,19,108,,,,,,Female,0.313739897
+Admitted,Male,B,353,,B,Male,63%,,B+C+D+E,Male,0.254977029
+Rejected,Male,B,207,560,,Female,68%,,,Female,0.264982374
+Admitted,Female,B,17,,,,,,B+C+D+E,Male,0.507333909
+Rejected,Female,B,8,25,,,,,,Female,
+Admitted,Male,C,120,,C,Male,37%,,,,
+Rejected,Male,C,205,325,,Female,34%,,,,
+Admitted,Female,C,202,,,,,,,,
+Rejected,Female,C,391,593,,,,,,,
+Admitted,Male,D,138,,D,Male,33%,,,,
+Rejected,Male,D,279,417,,Female,35%,,,,
+Admitted,Female,D,131,,,,,,,,
+Rejected,Female,D,244,375,,,,,,,
+Admitted,Male,E,53,,E,Male,28%,,,,
+Rejected,Male,E,138,191,,Female,24%,,,,
+Admitted,Female,E,94,,,,,,,,
+Rejected,Female,E,299,393,,,,,,,
+Admitted,Male,F,22,,F,Male,6%,,,,
+Rejected,Male,F,351,373,,Female,7%,,,,
+Admitted,Female,F,24,,,,,,,,
+Rejected,Female,F,317,341,,,,,,,
