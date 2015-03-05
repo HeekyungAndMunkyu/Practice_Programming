@@ -212,7 +212,15 @@ def makeTrigger(triggerMap, triggerType, params, name):
      'SUMMARY':SummaryTrigger, 'NOT':NotTrigger, 'AND':AndTrigger, 'OR':OrTrigger,\
      'PHRASE':PhraseTrigger}
     # make newTrigger
-    newTrigger = triggerTypeToTriggerMap[triggerType](params[0], params[1])
+    if triggerType in ['TITLE', 'SUBJECT', 'SUMMARY']:
+        newTrigger = triggerTypeToTriggerMap[triggerType](params[0])
+    elif triggerType in ['AND', 'OR']:
+        newTrigger = triggerTypeToTriggerMap[triggerType](triggerMap[params[0]], \
+        triggerMap[params[1]])
+    elif triggerType == 'NOT':
+        newTrigger = triggerTypeToTriggerMap[triggerType](triggerMap[params[0]])
+    else:
+        newTrigger = triggerTypeToTriggerMap[triggerType](' '.join(params))
     # add to triggerMap
     triggerMap[name] = newTrigger
 
