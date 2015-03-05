@@ -165,7 +165,7 @@ def DFSBinaryOrdered(root, fcn, ltFcn):
 # knapsack problem
 def buildDTree(sofar, todo):
 	'''
-	sofar: int (value of a node)
+	sofar: list (value of a node)
 	todo: list, of lists e.g. [[value0, weight0], [value1, weight1]]
 
 	return: binaryTree (decision tree made up of todo values, with and without) 
@@ -211,11 +211,12 @@ def WeightsBelow6(lst):
 
 def DFSDTree(root, valueFcn, constraintFcn):
 	'''
-	root: binaryTree
+	root: binaryTree (decision tree, where a list is stored)
 	valueFcn: function, summing up values (e.g. sumValues)
 	constraintFcn: function, constraining sum of weights (e.g. WeightsBelow10)
 
-	return: binaryTree, with the best
+	return: binaryTree, with the maximum sum of values, of which sum of weights
+		less than or equal to constraining int
 	'''
 	stack = [root]   # [binaryTree (decision tree)]
 	best = None
@@ -223,11 +224,89 @@ def DFSDTree(root, valueFcn, constraintFcn):
 
 	while len(stack) > 0:
 		visited += 1
+		print
+		print 'visited', visited
+		print 'stack[0] = ', stack[0]
+		if constraintFcn(stack[0].getValue()):
+			print '    sumWeights <= 10'
+			if best == None:
+				print '        if best == None'
+				best = stack[0]
+			elif valueFcn(stack[0].getValue()) > valueFcn(best.getValue()):
+				print '        elif stack[0] > best'
+				best = stack[0]
+			print '    best', best
+			temp = stack.pop(0)
+			if temp.getRightBranch():
+				stack.insert(0, temp.getRightBranch())
+			if temp.getLeftBranch():
+				stack.insert(0, temp.getLeftBranch())
+		else:
+			stack.pop(0)
+	print 'visited', visited
+	return best
+
+
+def BFSDTree(root, valueFcn, constraintFcn):
+	'''
+        root: binaryTree (decision tree, where a list is stored)
+        valueFcn: function, summing up values (e.g. sumValues)
+        constraintFcn: function, constraining sum of weights (e.g. WeightsBelow10)
+
+        return: binaryTree, with the maximum sum of values, of which sum of weights
+                less than or equal to constraining int
+        '''
+	queue = [root]
+	best = None
+	visited = 0
+	while len(queue) > 0:
+		visited += 1
+		if constraintFcn(queue[0].getValue()):
+			if best == None:
+				best = queue[0]
+			elif valueFcn(queue[0].getValue()) > valueFcn(best.getValue()):
+				best = queue[0]
+			temp = queue.pop(0)
+			if temp.getLeftBranch():
+				queue.append(temp.getLeftBranch())
+			if temp.getRightBranch():
+				queue.append(temp.getRightBranch())
+		else:
+			queue.pop(0)
+	print 'visited', visited
+	return best
+
+
+
+
+# stop function
+def atLeast15(lst):
+    return sumValues(lst) >= 15
+
+def DFSDTreeGoodEnough(root, valueFcn, constraintFcn, stop):
+        '''
+        root: binaryTree (decision tree, where a list is stored)
+        valueFcn: function, summing up values (e.g. sumValues)
+        constraintFcn: function, constraining sum of weights (e.g. WeightsBelow10)
+	stop: function, deciding if sum of values is greater than or equal to 
+		a certain number (e.g. atLeast15)
+
+        return: binaryTree, with the sum of values satisfying stop function,
+		 of which sum of weights less than or equal to constraining int
+	'''
+	stack = [root]
+	best = None
+	visited = 0
+	while len(stack) > 0:
+		visited += 1
 		if constraintFcn(stack[0].getValue()):
 			if best == None:
 				best = stack[0]
 			elif valueFcn(stack[0].getValue()) > valueFcn(best.getValue()):
 				best = stack[0]
+			if stop(best.getValue()):
+				print 'visited', visited
+				return best
 			temp = stack.pop(0)
 			if temp.getRightBranch():
 				stack.insert(0, temp.getRightBranch())
@@ -240,3 +319,84 @@ def DFSDTree(root, valueFcn, constraintFcn):
 
 
 
+def BFSDTreeGoodEnough(root, valueFcn, constraintFcn, stop):
+        '''
+        root: binaryTree (decision tree, where a list is stored)
+        valueFcn: function, summing up values (e.g. sumValues)
+        constraintFcn: function, constraining sum of weights (e.g. WeightsBelow10)
+        stop: function, deciding if sum of values is greater than or equal to 
+                a certain number (e.g. atLeast15)
+
+        return: binaryTree, with the sum of values satisfying stop function,
+                 of which sum of weights less than or equal to constraining int
+        '''
+	queue = [root]
+        best = None
+        visited = 0
+        while len(queue) > 0:
+            visited += 1
+            if constraintFcn(queue[0].getValue()):
+                if best == None:
+                    best = queue[0]
+                    print best.getValue()
+                elif valueFcn(queue[0].getValue()) > valueFcn(best.getValue()):
+                    best = queue[0]
+                    print best.getValue()
+                if stopFcn(best.getValue()):
+                    print 'visited', visited
+                    return best
+                temp = queue.pop(0)
+                if temp.getLeftBranch():
+                    queue.append(temp.getLeftBranch())
+                if temp.getRightBranch():
+                    queue.append(temp.getRightBranch())
+            else:
+                queue.pop(0)
+        print 'visited', visited
+        return best
+
+
+visited = 0
+def DTImplicit(toConsider, avail):
+	'''
+	toConsider: list, of lists, which are elements of a decision tree
+		(e.g. [[1,10],[3,13]])
+	avail: int, maximum sum of weights
+		
+		returns a node value that maximizes the sum of values
+		while keeping the sum of weights less than or equal to avail
+
+	return: tuple, of value of solution and solution, where solution is 
+		a node value in a decision tree whose sum of values are maximized
+		when sum of weights is less than or equal to 'avail'
+		(e.g. (5,([1,10],[4,15]) when avail == 25)
+	'''
+	global visited
+	visited += 1
+	print
+	print '---> inside DTImplicit ', visited
+	if toConsider == [] or avail == 0:
+		print 'toConsider == [] or avail == 0'
+		print
+		result = (0, ())
+	elif toConsider[0][1] > avail:
+		print '    toConsider[0],[1]', toConsider[0][1], '>', 'avail', avail
+		print
+		result = DTImplicit(toConsider[1:], avail)
+	else:
+		nextItem = toConsider[0]
+		print 'nextItem: ', nextItem
+		withVal, withToTake = DTImplicit(toConsider[1:], avail - nextItem[1])
+		print
+		withVal += nextItem[0]
+		withoutVal, withoutToTake = DTImplicit(toConsider[1:], avail)
+		print '    withVal: ', withVal, '  withToTake: ', withToTake
+		print '    withoutVal: ', withoutVal, '  withoutToTake: ', withoutToTake
+		if withVal > withoutVal:
+			print '    withVal > withoutVal'
+			result = (withVal, withToTake + (nextItem,))
+		else:
+			print '    withVal < withoutVal'
+			result = (withoutVal, withoutToTake)
+	print '<--- outside DTImplicit ', visited
+	return result
