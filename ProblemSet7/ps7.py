@@ -167,16 +167,23 @@ def filterStories(stories, triggerlist):
     """
     # TODO: Problem 10
     # This is a placeholder (we're just returning all the stories, with no filtering)
-    filteredList = []
-    for story in stories:
-        print story
-        for trigger in triggerlist:
-            print trigger
-            if trigger.evaluate(story):
-                print trigger.evaluate(story)
-                if story not in filteredList:
-                    filteredList.append(story)
-        return filteredList
+#    filteredList = []
+#    for story in stories:
+#        print story
+#        for trigger in triggerlist:
+#            print trigger
+#            if trigger.evaluate(story):
+#                print trigger.evaluate(story)
+#                if story not in filteredList:
+#                    filteredList.append(story)
+#        return filteredList
+    filtered = []
+    for t in triggerlist:
+        for s in stories:
+            if t.evaluate(s) == True:
+                if s not in filtered:
+                    filtered.append(s)
+    return filtered
 
 #======================
 # Part 4
@@ -199,6 +206,25 @@ def makeTrigger(triggerMap, triggerType, params, name):
     Returns a new instance of a trigger (ex: TitleTrigger, AndTrigger).
     """
     # TODO: Problem 11
+
+    # maps out triggerType(key) with trigger class(value)
+    triggerTypeToTriggerMap = {'TITLE':TitleTrigger, 'SUBJECT':SubjectTrigger,\
+     'SUMMARY':SummaryTrigger, 'NOT':NotTrigger, 'AND':AndTrigger, 'OR':OrTrigger,\
+     'PHRASE':PhraseTrigger}
+    # make newTrigger
+    if triggerType in ['TITLE', 'SUBJECT', 'SUMMARY']:
+        newTrigger = triggerTypeToTriggerMap[triggerType](params[0])
+    elif triggerType in ['AND', 'OR']:
+        newTrigger = triggerTypeToTriggerMap[triggerType](triggerMap[params[0]], \
+        triggerMap[params[1]])
+    elif triggerType == 'NOT':
+        newTrigger = triggerTypeToTriggerMap[triggerType](triggerMap[params[0]])
+    else:
+        newTrigger = triggerTypeToTriggerMap[triggerType](' '.join(params))
+    # add to triggerMap
+    triggerMap[name] = newTrigger
+
+    return newTrigger
 
 
 def readTriggerConfig(filename):
@@ -258,7 +284,7 @@ def main_thread(master):
 
         # TODO: Problem 11
         # After implementing makeTrigger, uncomment the line below:
-        # triggerlist = readTriggerConfig("triggers.txt")
+        triggerlist = readTriggerConfig("triggers.txt")
 
         # **** from here down is about drawing ****
         frame = Frame(master)
