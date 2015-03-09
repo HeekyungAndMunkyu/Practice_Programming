@@ -4,10 +4,10 @@ class courseInfo(object):
         self.courseName = courseName
         self.psetsDone = []
         self.grade = "No Grade"
-        
+
     def setPset(self, pset, score):
         self.psetsDone.append((pset, score))
-        
+
     def getPset(self, pset):
         for (p, score) in self.psetsDone:
             if p == pset:
@@ -23,17 +23,17 @@ class courseInfo(object):
 
 
 class edx(object):
-    def __init__(self, courses):
-        self.myCourses = []
+    def __init__(self, courses): # courses: list
+        self.myCourses = {} # list of courseInfo
         for course in courses:
-            self.myCourses.append(courseInfo(course))
+            self.myCourses[course] = courseInfo(course)
 
     def setGrade(self, grade, course="6.01x"):
         """
         grade: integer greater than or equal to 0 and less than or equal to 100
-        course: string 
+        course: string
 
-        This method sets the grade in the courseInfo object named by `course`.   
+        This method sets the grade in the courseInfo object named by `course`.
 
         If `course` was not part of the initialization, then no grade is set, and no
         error is thrown.
@@ -41,19 +41,25 @@ class edx(object):
         The method does not return a value.
         """
         #   fill in code to set the grade
-        pass
+        newCourse = courseInfo("6.01x")
+        newCourse.setGrade(grade)
+        self.myCourses[course] = newCourse
 
     def getGrade(self, course="6.02x"):
         """
-        course: string 
+        course: string
 
         This method gets the grade in the the courseInfo object named by `course`.
 
-        returns: the integer grade for `course`.  
+        returns: the integer grade for `course`.
         If `course` was not part of the initialization, returns -1.
         """
         #   fill in code to get the grade
-        pass
+        course = self.myCourses.get(course, -1)
+        if course == -1:
+            return course
+        else:
+            return course.getGrade()
 
     def setPset(self, pset, score, course="6.00x"):
         """
@@ -68,27 +74,37 @@ class edx(object):
         and no error is thrown.
         """
         #   fill in code to set the pset
-        pass
+        newCourse = courseInfo(course)
+        newCourse.setPset(pset, score)
+        self.myCourses[course] = newCourse
 
     def getPset(self, pset, course="6.00x"):
         """
         pset: a string or a number
-        course: string        
+        course: string
 
         returns: The score of the specified `pset` of the given
         `course` using the courseInfo object.
         If `course` was not part of the initialization, returns -1.
         """
         #   fill in code to get the pset
-        pass
+        course = self.myCourses.get(course, -1)
+        if course == -1:
+            return course
+        else:
+            return course.getPset(pset)
 
 
 edX = edx( ["6.00x","6.01x","6.02x"] )
-edX.setPset(1,100)
-edX.setPset(2,100,"6.00x")
-edX.setPset(2,90,"6.00x")
+edX.setGrade(100, "6.00x")
+edX.setGrade(90, "6.01x")
+edX.setGrade(80, "6.02x")
+edX.setGrade(50)
 
-edX.setGrade(100)
+print edX.getGrade("6.00x")
 
-for c in ["6.00x","6.01x","6.02x"]:
-    edX.setGrade(90,c)
+print edX.getGrade("6.01x")
+
+print edX.getGrade("6.02x")
+
+print edX.getGrade()
