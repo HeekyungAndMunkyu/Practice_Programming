@@ -41,6 +41,7 @@ class edx(object):
         The method does not return a value.
         """
         #   fill in code to set the grade
+        print course, grade
         if course in self.myCourses:
             theCourse = self.myCourses[course]
             theCourse.setGrade(grade)
