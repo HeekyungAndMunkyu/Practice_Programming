@@ -72,6 +72,21 @@ def insert(atMe, newFrob):
                     nextFrob = nextFrob.getBefore()
 
 
+# Problem 7-2
+def findFront(start):
+    '''
+    start: a Frob
+    returns: the Frob at the beginning of the linked list
+    '''
+    if start.getBefore() == None:
+        return start
+    elif start.getBefore().getBefore() == None:
+        return start.getBefore()
+    else:
+        return findFront(start.getBefore())
+
+
+
 eric = Frob('eric')
 andrew = Frob('andrew')
 ruth = Frob('ruth')
@@ -87,3 +102,6 @@ print 'andrew and', andrew.getAfter().myName()
 print eric.getBefore().myName(), 'and eric'
 print 'eric and', eric.getAfter().myName()
 print fred.getBefore().myName(), 'and fred'
+
+print
+print findFront(ruth).myName()
