@@ -134,21 +134,53 @@ class Family(object):
         # pros:    / cons: need to make a complete list
 
         # func: make a list of ancestors
-        def allAncestorsList(family, memberStr):
+        def allAncestorList(family, member):
             '''
             family: class Family
-            memberStr: str, of member name
+            memberStr: class Member
 
                 recursive
 
-            return: list, of all ancestors
+            return: list, of all ancestors, close to further (list of Members)
             '''
             if family.root == Member(memberStr):
                 return []
 
             else:
-                return family.names_to_node[memberStr].getParent() \
-                + allAncestorsList(family, family.names_tonode[memberStr])
+                return [member.getParent()] \
+                + allAncestorList(family, member.getParent())
+
+        cousinType = None
+        degreeRmvd = None
+
+        aAncestorList = allAncestorList(self, self.names_to_node[a])
+        bAncestorList = allAncestorList(self, self.names_to_node[b])
+
+        longerList = aAncestorList
+        shorterList = bAncestorList
+
+        # <degreeRmvd>
+        if len(bAncestorList) > len(aAncestorList):
+            longerList = bAncestorList
+            shorterList = aAncestorList
+
+        degreeRmvd = len(longerList) - len(shorterList)
+
+        ## <cousinType>
+
+        # type 1: same member
+        if aAncestorList == bAncestorList:
+            return (-1, degreeRmvd)
+
+        # type 2: direct decendent relationship
+        if self.names_to_node[a] in bAncestorList or \
+        self.names_to_node[b] in aAncestorList:
+            return (-1, degreeRmvd)
+
+        # type 3: common case
+        for ancestor in longerList[degreeRmvd:]:
+            if ancestor in shorterList:
+                cousinType = shorterList.index(ancestor)
 
         return (cousinType, degreeRmvd)
 
