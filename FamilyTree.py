@@ -180,9 +180,7 @@ class Family(object):
         # type 3: common case
         for ancestor in longerList[degreeRmvd:]:
             if ancestor in shorterList:
-                cousinType = shorterList.index(ancestor)
-
-        return (cousinType, degreeRmvd)
+                return (shorterList.index(ancestor), degreeRmvd)
 
 
 
@@ -228,3 +226,11 @@ print "'h' is a", words[t], "cousin", r, "removed from 'h'"
 
 t, r = f.cousin("a", "a")
 print "'a' is a", words[t], "cousin", r, "removed from 'a'"
+
+
+print
+print
+print 'TEST ERROR CASES'
+print
+t, r = f.cousin("i", "h")
+print "'i' is a", words[t], "cousin", r, "removed from 'h'"
