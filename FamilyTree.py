@@ -143,18 +143,18 @@ class Family(object):
 
             return: list, of all ancestors, close to further (list of Members)
             '''
-            if family.root == Member(memberStr):
+            if family.root == member:
                 return []
 
             else:
-                return [member.getParent()] \
-                + allAncestorList(family, member.getParent())
+                return [member.get_parent()] \
+                + allAncestorList(family, member.get_parent())
 
         cousinType = None
         degreeRmvd = None
 
-        aAncestorList = allAncestorList(self, self.names_to_node[a])
-        bAncestorList = allAncestorList(self, self.names_to_node[b])
+        aAncestorList = allAncestorList(self, self.names_to_nodes[a])
+        bAncestorList = allAncestorList(self, self.names_to_nodes[b])
 
         longerList = aAncestorList
         shorterList = bAncestorList
@@ -169,12 +169,12 @@ class Family(object):
         ## <cousinType>
 
         # type 1: same member
-        if aAncestorList == bAncestorList:
+        if a == b:
             return (-1, degreeRmvd)
 
         # type 2: direct decendent relationship
-        if self.names_to_node[a] in bAncestorList or \
-        self.names_to_node[b] in aAncestorList:
+        if self.names_to_nodes[a] in bAncestorList or \
+        self.names_to_nodes[b] in aAncestorList:
             return (-1, degreeRmvd)
 
         # type 3: common case
