@@ -30,15 +30,11 @@ def insert(atMe, newFrob):
     """
     # after atMe
     if atMe.myName() <= newFrob.myName():
-        print atMe.myName(), '<=', newFrob.myName()
         # compare with those after
         nextFrob = atMe
-        print 'nextFrob = atMe', nextFrob.myName()
         foundPlace = False
         while not foundPlace:
-            print 'ummm', nextFrob.myName()
             if nextFrob.getAfter() == None:
-                print 'here', nextFrob.myName()
                 newFrob.setBefore(nextFrob)
                 nextFrob.setAfter(newFrob)
                 foundPlace = True
@@ -46,22 +42,16 @@ def insert(atMe, newFrob):
             else:
                 if newFrob.myName() <= nextFrob.getAfter().myName():
                     newFrob.setBefore(nextFrob)
-                    print ' ', newFrob.getBefore().myName(), 'and', newFrob.myName()
                     newFrob.setAfter(nextFrob.getAfter())
-                    print ' ', newFrob.myName(), 'and', newFrob.getAfter().myName()
                     nextFrob.getAfter().setBefore(newFrob)
-                    print ' ', nextFrob.getAfter().getBefore().myName(), 'and', nextFrob.getAfter().myName()
                     nextFrob.setAfter(newFrob)
-                    print ' ', nextFrob.myName(), 'and', nextFrob.getAfter().myName()
 
-                    print
                     foundPlace = True
                 else:
                     nextFrob = nextFrob.getAfter()
 
     # before atMe
     else:
-        print atMe.myName(), '>' , newFrob.myName()
     # compare with those before
         nextFrob = atMe
         foundPlace = False
