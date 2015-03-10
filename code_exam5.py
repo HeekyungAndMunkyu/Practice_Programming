@@ -73,10 +73,9 @@ class edx(object):
         and no error is thrown.
         """
         #   fill in code to set the pset
-#        if course in
-        newCourse = courseInfo(course)
-        newCourse.setPset(pset, score)
-        self.myCourses[course] = newCourse
+        if course in self.myCourses:
+            theCourse = self.myCourses[course]
+            theCourse.setPset(pset, score)
 
     def getPset(self, pset, course="6.00x"):
         """
@@ -88,11 +87,10 @@ class edx(object):
         If `course` was not part of the initialization, returns -1.
         """
         #   fill in code to get the pset
-        course = self.myCourses.get(course, -1)
-        if course == -1:
-            return -1
+        if course in self.myCourses:
+            return self.myCourses[course].getPset()
         else:
-            return course.getPset(pset)
+            return -1
 
 
 edX = edx( ["6.00x","6.01x","6.02x"] )
