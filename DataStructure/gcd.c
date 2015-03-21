@@ -13,7 +13,7 @@ int main (void)
 
   gcdResult = gcd (10, 25);
   printf("GCD of 10 & 25 is %d", gcdResult);
-  print("\nEnd of Test\n");
+  printf("\nEnd of Test\n");
   return 0;
 } // main
 /* ================= gcd =====================
