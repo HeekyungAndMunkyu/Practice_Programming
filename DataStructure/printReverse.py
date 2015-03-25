@@ -6,17 +6,15 @@ def printReverse(data):
 
     returns: prints data in reverse
     '''
+    line = data.readline() # data read until previous line
     # base case: end of file
-    print type(data), data
-    if not data.readline():
+    if line == '':
         return
 
     # recursive case:
-    line = data.readline() # data read until previous line
-    printReverse(line)
+    printReverse(data)
     print line,
 
 
 data = open('printReverseTextFile.txt', 'r')
-print type(data)
 printReverse(data)
