@@ -115,12 +115,18 @@ void* stackTop (STACK* stack)
 } // stackTop
 
 /* ================== emptyStack =====================
+  returns: 1 if the stack is empty; 0 otherwise
 */
 bool emptyStack (STACK* stack)
 {
   // Statements
-  if (stack->count == 0)
-    return True;
-  else
-    return False;
+  return (stack->count == 0);
 } // emptyStack
+
+
+/* ================= fullStack =======================
+  determines if a stack is full
+  Full == heap full
+
+  returns: true if heap full; false otherwise
+*/
