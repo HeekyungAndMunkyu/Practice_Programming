@@ -83,10 +83,31 @@ void* popStack (STACK* stack)
 {
   //Local Definitions
   void* dataOutPtr;
+  STACK_NODE* temp;
+
   //Statements
-  dataOutPtr = stack->top;
-  stack->top = stack->top->link;
-  stack->top->link = NULL;
-  
+  if (stack->count == 0)
+    dataOutPtr = NULL;
+  else
+    {
+      temp = stack->top;
+      dataOutPtr = stack->top->dataPtr;
+      stack->top = stack->top->link;
+      free(temp);
+      (stack->count)--;
+    }
   return dataOutPtr;
+}
+
+
+
+/* ================ stackTop =========================
+
+*/
+void* stackTop (STACK* stack)
+{
+  //Local Definitions
+
+  //Statements
+  return stack->top->dataPtr;
 }
