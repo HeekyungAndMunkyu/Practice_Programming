@@ -37,7 +37,7 @@ STACK* createStack (void)
   // Local Declarations
   STACK* stack;
 
-  //
+  // Statements
   stack = (STACK*) malloc(sizeof (STACK))
   if (stack)
     {
@@ -47,3 +47,21 @@ STACK* createStack (void)
 
   return stack;
 } // createStack
+
+
+/* ================ pushStack =================
+
+
+*/
+void pushStack (STACK* stack, void* dataInPtr)
+{
+  // Local Declarations
+  STACK_NODE* newPtr;
+
+  // Statements
+  newPtr = (STACK_NODE*) malloc(sizeof(STACK_NODE))
+  newPtr->dataPtr = dataInPtr
+  newPtr->link = stack->top
+  stack->top = newPtr
+  return 0;
+} // pushStack
