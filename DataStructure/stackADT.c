@@ -144,3 +144,59 @@ bool fullStack (STACK* stack)
   // malloc failed
   return true;
 } // fullStack
+
+
+
+
+/* ============== stackCount ====================
+  returns: int, stack count
+*/
+int stackCount (STACK* stack)
+{
+  return stack->count;
+}
+
+
+/* ============== destroyStack ===================
+    release all nodes to the heap
+  returns: null pointer
+*/
+STACK* destroyStack (STACK* stack)
+{
+  //local definitions
+  STACK_NODE* temp;
+  //statements
+  if (stack)
+    {
+      //Delete all nodes in stack
+      while (stack->top != NULL)
+        {
+          free(stack->top->dataPtr);
+
+          temp = stack->top;
+          stack->top = stack->top->link;
+          free(temp);
+        } // while
+      // Stack now empty. Destroy stack head node.
+      free(stack);
+    }
+  return NULL;
+} // destoryStack
+
+
+int main (void)
+{
+  // local definitions
+  STACK* stack;
+  // statements
+  stack = createStack ();
+
+  int* dataInPtr1 = 1;
+  int* dataInPtr2 = 2;
+
+  pushStack (STACK* stack, int* dataInPtr1);
+  pushStack (STACK* stack, int* dataInPtr2);
+  stackTopDataPtr = stackTop(STACK* stack);
+  printf ("%d", *stackTopDataPtr)
+
+}
