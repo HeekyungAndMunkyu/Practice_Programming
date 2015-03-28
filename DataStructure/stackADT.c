@@ -130,3 +130,17 @@ bool emptyStack (STACK* stack)
 
   returns: true if heap full; false otherwise
 */
+bool fullStack (STACK* stack)
+{
+  // local definitions
+  STACK_NODE* temp;
+  // statements
+  if ((temp =
+    (STACK_NODE*) malloc(sizeof(*(stack->top)))))
+    {
+      free(temp);
+      return false;
+    } //if
+  // malloc failed
+  return true;
+} // fullStack
