@@ -107,7 +107,20 @@ void* popStack (STACK* stack)
 void* stackTop (STACK* stack)
 {
   //Local Definitions
-
   //Statements
-  return stack->top->dataPtr;
-}
+  if (stack->count == 0)
+    return NULL;
+  else
+    return stack->top->dataPtr;
+} // stackTop
+
+/* ================== emptyStack =====================
+*/
+bool emptyStack (STACK* stack)
+{
+  // Statements
+  if (stack->count == 0)
+    return True;
+  else
+    return False;
+} // emptyStack
