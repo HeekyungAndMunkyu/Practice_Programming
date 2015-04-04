@@ -25,7 +25,7 @@ J = ( transpose (-y) * log(sigmoid (X * theta))...
  - transpose (1 .- y) * log(1 .- sigmoid (X * theta)) ) / m;
 
 
-grad = (transpose (X) * (X * theta - y)) ./ m; 
+grad = (transpose (X) * (sigmoid (X * theta) - y)) ./ m; 
 
 
 
