@@ -6,7 +6,7 @@ function [J, grad] = costFunctionReg(theta, X, y, lambda)
 
 % Initialize some useful values
 m = length(y); % number of training examples
-
+n = size(X, 2);
 % You need to return the following variables correctly 
 J = 0;
 grad = zeros(size(theta));
@@ -18,10 +18,11 @@ grad = zeros(size(theta));
 %               derivatives of the cost w.r.t. each parameter in theta
 
 
+J = (transpose (-y) * log (sigmoid (X * theta)) - transpose (1 .- y) * log(1 .- sigmoid (X * theta))) / m...
+ + (lambda / (2 * m)) * (transpose (theta(2:n, 1)) * theta(2:n, 1));
 
-
-
-
+grad = (transpose (X) * (sigmoid (X * theta) - y) + lambda * theta) ./ m;
+grad(1,1) = (transpose (sigmoid (X * theta) - y) * X (:, 1)) ./ m;
 % =============================================================
 
 end
