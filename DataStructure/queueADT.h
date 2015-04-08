@@ -51,7 +51,7 @@ QUEUE* createQueue (void)
 /* ============ createQueue ============= */
 /* ============ createQueue ============= */
 /* ============ createQueue ============= */
-bool enqueue (QUEUE* queue, void* itmePtr)
+bool enqueue (QUEUE* queue, void* itemPtr)
 {
   // local definitions
   QUEUE_NODE* newPtr;
@@ -78,5 +78,6 @@ bool enqueue (QUEUE* queue, void* itmePtr)
 int queueCount (QUEUE* queue)
 {
   return queue->count;
+
 }
 /* ============ createQueue ============= */
