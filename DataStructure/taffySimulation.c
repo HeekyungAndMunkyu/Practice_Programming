@@ -52,10 +52,10 @@ int main (void)
 	*clockTime = 0;
 	*custNum = 0;
 
-	while (clockTime <= 10 || moreCusts)
+	while (*clockTime <= 10 || moreCusts)
 		{
 		newCustomer (queue, clockTime, custNum);
-		printf ("clockTime:%d, custNum: %d, queueCount:%d" % (*clockTime, *custNum, *queueCount()))
+		printf ("clockTime:%d, custNum: %d, queueCount:%d" % (*clockTime, *custNum, *queueCount(queue)));
 		/* serverFree (queue, clockTime, status, moreCusts);
 		svcComplete (queue, clockTime, status, stats, moreCusts);
 
@@ -79,17 +79,17 @@ int main (void)
 void newCustomer (QUEUE* queue, int* clockTime, int* custNum)
 	{
 	// local declarations
-	int* custArrived;
+	int custArrived;
 	CUST_DATA* custData;
 
 	// statements
-	*custArrived = rand (4);
-	if (*custArrived == 4)
+	custArrived = rand () % 4;
+	if (custArrived == 0)
 		{
-		*custNum++;
+		(*custNum)++;
 		custData = (CUST_DATA*) malloc (sizeof (CUST_DATA));
-		custData->custNum = custNum;
-		custData->arriveTime = clockTime;
+		custData->custNum = *custNum;
+		custData->arriveTime = *clockTime;
 		enqueue (queue, custData);
 		}	// if
 	}	// newCustomer
