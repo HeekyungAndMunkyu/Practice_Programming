@@ -52,7 +52,7 @@ int main (void)
 	*clockTime = 0;
 	*custNum = 0;
 
-	while (*clockTime <= 10 || moreCusts)
+	while (*clockTime <= 10)
 		{
 		newCustomer (queue, clockTime, custNum);
 		int countcount;
