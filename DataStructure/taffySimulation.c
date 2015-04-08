@@ -55,7 +55,8 @@ int main (void)
 	while (*clockTime <= 10 || moreCusts)
 		{
 		newCustomer (queue, clockTime, custNum);
-		printf ("clockTime:%d, custNum: %d, queueCount:%d" % (*clockTime, *custNum, *(queueCount(queue)));
+		printf ("clockTime:%d, custNum: %d, queueCount:%d" % (*clockTime, *custNum, *(queueCount(queue))));
+		}
 		/* serverFree (queue, clockTime, status, moreCusts);
 		svcComplete (queue, clockTime, status, stats, moreCusts);
 
