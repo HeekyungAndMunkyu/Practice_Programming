@@ -57,7 +57,7 @@ int main (void)
 		newCustomer (queue, clockTime, custNum);
 		int countcount;
 		countcount = queueCount (queue);
-		printf ("clockTime:%d, custNum: %d, queueCount:%d" % (*clockTime, *custNum, countcount));
+		printf ("clockTime:%d, custNum: %d, queueCount:%d", *clockTime, *custNum, countcount);
 		}
 		/* serverFree (queue, clockTime, status, moreCusts);
 		svcComplete (queue, clockTime, status, stats, moreCusts);
