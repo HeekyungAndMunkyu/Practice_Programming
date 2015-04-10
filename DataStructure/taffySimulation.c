@@ -29,8 +29,7 @@ typedef struct
 // algorithms
 void newCustomer (QUEUE* queue, int* clockTime, int* custNum);
 void serverFree (QUEUE* queue, int* clockTime, STATUS* status, bool* moreCusts);
-void svcComplete (QUEUE* queue, int* clockTime, STATUS* status, STATS* stats, \
-		bool moreCusts);
+void svcComplete (QUEUE* queue, int* clockTime, STATUS* status, STATS* stats, bool* moreCusts);
 void printStats (STATS* stats);
 
 // main
@@ -134,6 +133,37 @@ void serverFree (QUEUE* queue, int* clockTime, STATUS* status, bool* moreCusts)
 	Determines if the current customer's processing is complete.
 
 */
+void svcComplete (QUEUE* queue, int* clockTime, STATUS* status, STATS* stats, bool* moreCusts)
+	{
+	// local definitions
+	int waitTime;
+	int queueSize;
+
+	// statements
+	if (*clockTime == status->startTime + status->svcTime -1)
+		{	
+		waitTime = status->startTime - status->arriveTime;
+		(stats->numCust)++;
+		stats->totSvcTime += status->svcTime;
+		stats->totWaitTime += waitTime;
+		queueSize = queueCount (queue);
+		
+		if (stats->maxQueueSize < queueSize)
+			{	
+			stats->maxQueueSize = queueSize;	
+			}	// if
+		printf ("Customer number: %d\n\
+			Customer arrive time: %d\n\
+			Customer start time: %d\n\
+			Customer service time: %d minutes\n\
+			Customer wait time: %d minutes\n\
+			Current queue size: %d\n",\
+			status->custNum, status->arriveTime,\
+			status->startTime, status->svcTime,\
+			waitTime, queueSize);
+		*moreCusts = false; //why?
+		}	//if
+	}	// svcComplete
 
 /* ========== printStats ==========
 	Prints the statistics for the simulation.
