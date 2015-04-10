@@ -89,7 +89,7 @@ void newCustomer (QUEUE* queue, int* clockTime, int* custNum)
 
 	// statements
 	if (*clockTime > 480)
-		return
+		return;
 	custArrived = rand () % 4;
 	if (custArrived == 0)
 		{
@@ -107,22 +107,24 @@ void newCustomer (QUEUE* queue, int* clockTime, int* custNum)
 void serverFree (QUEUE* queue, int* clockTime, STATUS* status, bool* moreCusts)
 	{
 	// local definitions
-	CUST_DATA** custDataPtr;
+	CUST_DATA* custData;
 
 	// statements
-	custDataPtr = (CUST_DATA**) malloc (sizeof (CUST_DATA*));
+	custData = (CUST_DATA*) malloc (sizeof (CUST_DATA));
 
 	if (*clockTime > status->startTime + status->svcTime - 1)
 		{
 		if (!emptyQueue (queue))
 			{
-			dequeue (queue, custDataPtr);
-			status->custNum = **custDataPtr->custNum;
-			status->arriveTime = **custDataPtr->arriveTime;
-			status->startTime = *clockTime;
-			status->svcTime = (rand () % 10) + 1;
+			if (dequeue (queue, (void*)&custData))
+				{
+				status->custNum = custData->custNum;
+				status->arriveTime = custData->arriveTime;
+				status->startTime = *clockTime;
+				status->svcTime = (rand () % 10) + 1;
 			
-			*moreCusts = true;		
+				*moreCusts = true;		
+				}	// if
 			}	// if
 		}	// if
 	}	// serverFree

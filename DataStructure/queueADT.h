@@ -53,22 +53,23 @@ QUEUE* createQueue (void)
 bool dequeue (QUEUE* queue, void** itemPtr)
 	{
 	// local definitions
-	QUEUE_NODE* deletePtr;
+	QUEUE_NODE* deleteLoc;
 
 	// statements
-	if (!queue)
+	if (!queue->count)
 		return false;
-	if (queue->count == 0)
-		return false;
-	if (queue->count == 1)
-		queue->rear = NULL;
-	
-	deletePtr = (QUEUE_NODE*) malloc (sizeof (QUEUE_NODE));
-	deletePtr = queue->front;
+
 	*itemPtr = queue->front->dataPtr;
-	queue->front = deletePtr->next;
+	deleteLoc = queue->front;
+
+	if (queue->count == 1)
+		queue->rear = queue->front = NULL;
+	else
+		queue->front = queue->front->next;
+
 	(queue->count)--;
-	free(deletePtr);
+	free(deleteLoc);
+
 	return true;
 	}	// dequeue
 
@@ -103,3 +104,7 @@ int queueCount (QUEUE* queue)
 
 }
 /* ============ createQueue ============= */
+bool emptyQueue (QUEUE* queue)
+	{	
+		return (queue->count == 0);
+	}	// emptyQueue
