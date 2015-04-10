@@ -49,8 +49,30 @@ QUEUE* createQueue (void)
 
 
 /* ============ createQueue ============= */
-/* ============ createQueue ============= */
-/* ============ createQueue ============= */
+/* ============ dequeue ============= */
+bool dequeue (QUEUE* queue, void** itemPtr)
+	{
+	// local definitions
+	QUEUE_NODE* deletePtr;
+
+	// statements
+	if (!queue)
+		return false;
+	if (queue->count == 0)
+		return false;
+	if (queue->count == 1)
+		queue->rear = NULL;
+	
+	deletePtr = (QUEUE_NODE*) malloc (sizeof (QUEUE_NODE));
+	deletePtr = queue->front;
+	*itemPtr = queue->front->dataPtr;
+	queue->front = deletePtr->next;
+	(queue->count)--;
+	free(deletePtr);
+	return true;
+	}	// dequeue
+
+/* ============ enqueue ============= */
 bool enqueue (QUEUE* queue, void* itemPtr)
 {
   // local definitions

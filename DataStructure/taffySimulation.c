@@ -41,36 +41,37 @@ int main (void)
 	int* clockTime;
 	bool* moreCusts;
 	int* custNum;
+	STATUS* status;
+	STATS* stats;
 
 	// statements
 	queue = (QUEUE*) malloc (sizeof (QUEUE));
 	clockTime = (int*) malloc (sizeof (int));
 	moreCusts = (bool*) malloc (sizeof (bool));
 	custNum = (int*) malloc (sizeof (int));
-
+	status = (STATUS*) malloc (sizeof (STATUS));
+	stats = (STATS*) malloc (sizeof (STATS));
+	
 	queue = createQueue ();
 	*clockTime = 0;
 	*custNum = 0;
+	// status variables?
+	// stats variables?
 
-	while (*clockTime <= 10)
+	while (*clockTime <= 480 || *moreCusts)
 		{
 		newCustomer (queue, clockTime, custNum);
-		int countcount;
-		countcount = queueCount (queue);
-		printf ("clockTime:%d, custNum: %d, queueCount:%d\n", *clockTime, *custNum, countcount);
-		(*clockTime)++;
-		}
-		/* serverFree (queue, clockTime, status, moreCusts);
-		svcComplete (queue, clockTime, status, stats, moreCusts);
+		serverFree (queue, clockTime, status, moreCusts);
+//		svcComplete (queue, clockTime, status, stats, moreCusts);
 
-		if (not emptyQueue (queue))
+		if (!emptyQueue (queue))
 			{
-			moreCusts = true;
+			*moreCusts = true;
 			}	// if
 		clockTime++;
 		}	//end while
-	printStats (stats);
-	*/
+//	printStats (stats);
+	
 	return 0;
 	}
 
@@ -87,6 +88,8 @@ void newCustomer (QUEUE* queue, int* clockTime, int* custNum)
 	CUST_DATA* custData;
 
 	// statements
+	if (*clockTime > 480)
+		return
 	custArrived = rand () % 4;
 	if (custArrived == 0)
 		{
@@ -101,6 +104,28 @@ void newCustomer (QUEUE* queue, int* clockTime, int* custNum)
 /* ========== serverFree ==========
 	This algorithm determines if the server is idle and if so starts serving a new customer.
 */
+void serverFree (QUEUE* queue, int* clockTime, STATUS* status, bool* moreCusts)
+	{
+	// local definitions
+	CUST_DATA** custDataPtr;
+
+	// statements
+	custDataPtr = (CUST_DATA**) malloc (sizeof (CUST_DATA*));
+
+	if (*clockTime > status->startTime + status->svcTime - 1)
+		{
+		if (!emptyQueue (queue))
+			{
+			dequeue (queue, custDataPtr);
+			status->custNum = **custDataPtr->custNum;
+			status->arriveTime = **custDataPtr->arriveTime;
+			status->startTime = *clockTime;
+			status->svcTime = (rand () % 10) + 1;
+			
+			*moreCusts = true;		
+			}	// if
+		}	// if
+	}	// serverFree
 
 
 /* ========== svcComplete ==========
