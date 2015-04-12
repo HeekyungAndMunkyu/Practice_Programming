@@ -39,7 +39,6 @@ int main (void)
 	// local declarations
 	QUEUE* queue;
 	int* clockTime;
-	time_t endTime = 17:00;
 	bool* moreCusts;
 	int* custNum;
 	STATUS* status;
@@ -59,7 +58,7 @@ int main (void)
 	// status variables?
 	// stats variables?
 
-	while (*clockTime <= endTime || *moreCusts)
+	while (*clockTime <= 480 || *moreCusts)
 		{
 		newCustomer (queue, clockTime, custNum);
 		serverFree (queue, clockTime, status, moreCusts);
@@ -156,13 +155,13 @@ void svcComplete (QUEUE* queue, int* clockTime, STATUS* status, STATS* stats, bo
 			stats->maxQueueSize = queueSize;	
 			}	// if
 		printf ("Customer number: %d\n\
-Customer arrive time: %d\n\
-Customer start time: %d\n\
+Customer arrive time: %d:%d\n\
+Customer start time: %d:%d\n\
 Customer service time: %d minutes\n\
 Customer wait time: %d minutes\n\
 Current queue size: %d\n\n",\
-			status->custNum, status->arriveTime,\
-			status->startTime, status->svcTime,\
+			status->custNum, ((status->arriveTime) / 60) + 9, (status->arriveTime) % 60,\
+			((status->startTime) / 60) + 9, (status->startTime) % 60, status->svcTime,\
 			waitTime, queueSize);
 		*moreCusts = false; //why?
 		}	//if
@@ -174,16 +173,17 @@ Current queue size: %d\n\n",\
 void printStats (STATS* stats)
 	{
 	// local definitions
-	int avgSvcTime;
-	int avgWaitTime;
+	float avgSvcTime;
+	float avgWaitTime;
 
 	// statements
 	printf ("Simulation Statistics:\n");
 	printf ("Total customers: %d\n", stats->numCust);
-	printf ("Total service time: %d\n", stats->totSvcTime);
-	avgSvcTime = stats->totSvcTime / stats->numCust;
-	printf ("Average service time: %d\n", avgSvcTime);
-	avgWaitTime = stats->totWaitTime / stats->numCust;
-	printf ("Average wait time: %d\n", avgWaitTime);
+	printf ("Total service time: %d hours %d\n", \
+		(stats->totSvcTime)/ 60, (stats->totSvcTime) % 60);
+	avgSvcTime = (float) stats->totSvcTime / stats->numCust;
+	printf ("Average service time: %d minutes\n", avgSvcTime);
+	avgWaitTime = (float) stats->totWaitTime / stats->numCust;
+	printf ("Average wait time: %d minutes\n", avgWaitTime);
 	printf ("Maximum queue size: %d\n", stats->maxQueueSize);	
 	}	// printStats
