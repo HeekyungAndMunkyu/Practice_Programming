@@ -49,7 +49,13 @@ QUEUE* createQueue (void)
 
 
 /* ============ createQueue ============= */
+QUEUE* destroyQueue (QUEUE* queue);
+
+
 /* ============ createQueue ============= */
+bool dequeue (QUEUE* queue, void** itemPtr);
+
+
 /* ============ createQueue ============= */
 bool enqueue (QUEUE* queue, void* itemPtr)
 {
@@ -74,10 +80,15 @@ bool enqueue (QUEUE* queue, void* itemPtr)
 
   return true;
 }
-/* ============ createQueue ============= */
+
+
+/* ============ queueCount ============= */
 int queueCount (QUEUE* queue)
 {
   return queue->count;
 
 }
+
+
 /* ============ createQueue ============= */
+bool emptyQueue (QUEUE* queue);

@@ -55,22 +55,19 @@ int main (void)
 	while (*clockTime <= 10)
 		{
 		newCustomer (queue, clockTime, custNum);
-		int countcount;
-		countcount = queueCount (queue);
-		printf ("clockTime:%d, custNum: %d, queueCount:%d\n", *clockTime, *custNum, countcount);
-		(*clockTime)++;
-		}
-		/* serverFree (queue, clockTime, status, moreCusts);
+		serverFree (queue, clockTime, status, moreCusts);
 		svcComplete (queue, clockTime, status, stats, moreCusts);
 
 		if (not emptyQueue (queue))
 			{
 			moreCusts = true;
 			}	// if
-		clockTime++;
+
+		(*clockTime)++;
+
 		}	//end while
 	printStats (stats);
-	*/
+
 	return 0;
 	}
 
