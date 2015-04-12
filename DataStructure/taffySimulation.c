@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "queueADT.h"
+#include <time.h>
 
 // data types
 typedef struct
@@ -38,11 +39,12 @@ int main (void)
 	// local declarations
 	QUEUE* queue;
 	int* clockTime;
+	time_t endTime = 17:00;
 	bool* moreCusts;
 	int* custNum;
 	STATUS* status;
 	STATS* stats;
-
+	
 	// statements
 	queue = (QUEUE*) malloc (sizeof (QUEUE));
 	clockTime = (int*) malloc (sizeof (int));
@@ -57,19 +59,19 @@ int main (void)
 	// status variables?
 	// stats variables?
 
-	while (*clockTime <= 480 || *moreCusts)
+	while (*clockTime <= endTime || *moreCusts)
 		{
 		newCustomer (queue, clockTime, custNum);
 		serverFree (queue, clockTime, status, moreCusts);
-//		svcComplete (queue, clockTime, status, stats, moreCusts);
+		svcComplete (queue, clockTime, status, stats, moreCusts);
 
 		if (!emptyQueue (queue))
 			{
 			*moreCusts = true;
 			}	// if
-		clockTime++;
+		(*clockTime)++;
 		}	//end while
-//	printStats (stats);
+	printStats (stats);
 	
 	return 0;
 	}
@@ -90,7 +92,8 @@ void newCustomer (QUEUE* queue, int* clockTime, int* custNum)
 	if (*clockTime > 480)
 		return;
 	custArrived = rand () % 4;
-	if (custArrived == 0)
+	if (custArrived == 3)
+
 		{
 		(*custNum)++;
 		custData = (CUST_DATA*) malloc (sizeof (CUST_DATA));
@@ -153,11 +156,11 @@ void svcComplete (QUEUE* queue, int* clockTime, STATUS* status, STATS* stats, bo
 			stats->maxQueueSize = queueSize;	
 			}	// if
 		printf ("Customer number: %d\n\
-			Customer arrive time: %d\n\
-			Customer start time: %d\n\
-			Customer service time: %d minutes\n\
-			Customer wait time: %d minutes\n\
-			Current queue size: %d\n",\
+Customer arrive time: %d\n\
+Customer start time: %d\n\
+Customer service time: %d minutes\n\
+Customer wait time: %d minutes\n\
+Current queue size: %d\n\n",\
 			status->custNum, status->arriveTime,\
 			status->startTime, status->svcTime,\
 			waitTime, queueSize);
@@ -168,3 +171,19 @@ void svcComplete (QUEUE* queue, int* clockTime, STATUS* status, STATS* stats, bo
 /* ========== printStats ==========
 	Prints the statistics for the simulation.
 */
+void printStats (STATS* stats)
+	{
+	// local definitions
+	int avgSvcTime;
+	int avgWaitTime;
+
+	// statements
+	printf ("Simulation Statistics:\n");
+	printf ("Total customers: %d\n", stats->numCust);
+	printf ("Total service time: %d\n", stats->totSvcTime);
+	avgSvcTime = stats->totSvcTime / stats->numCust;
+	printf ("Average service time: %d\n", avgSvcTime);
+	avgWaitTime = stats->totWaitTime / stats->numCust;
+	printf ("Average wait time: %d\n", avgWaitTime);
+	printf ("Maximum queue size: %d\n", stats->maxQueueSize);	
+	}	// printStats
