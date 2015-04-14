@@ -22,6 +22,7 @@ for line in original_transcript_list:
 		b.append(line)
 	else:
 		other.append(line)	
+'''
 print 'A+'
 print
 for record in aplus:
@@ -34,4 +35,29 @@ for record in a:
 	print record
 	print 
 
- 
+'''
+major = []
+for line in original_transcript_list:
+	if '전공' in line and '지도'not in line and '교양'not in line and 'HO' not in line and '외국'not in line:
+		major.append(line)
+total = 0.0
+count = 0.0
+for line in major:
+	if 'A+' in line:
+		total += 4.5
+		count += 1.0
+	elif 'A' in line:
+		total += 4.0
+		count += 1.0
+	elif 'B+' in line:
+		total += 3.5
+		count += 1.0
+	elif 'B' in line:
+		total += 3.0
+		count += 1.0
+	else:
+		print line
+average = total/count
+print '%d / %d = %3d' % (total, count, total/count)	
+for line in major:
+	print line
