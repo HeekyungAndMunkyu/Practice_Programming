@@ -21,8 +21,30 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+%% hypothesis computation
+% input layer * Theta1
+% (25 * 401) * transpose (m * (400 + 1 col))
+input_bias = [ones(m, 1), X];
+hidden = sigmoid (Theta1 * transpose (input_bias));
+% result: 25 * m
 
 
+
+% hidden layer * Theta2
+% (10 * 26) * (26 * m)
+hidden_bias = [ones(1, m); hidden];
+output = sigmoid(Theta2 * hidden_bias);
+% result: 10(num labels) * m
+
+
+%% classify labels
+% max func returns index
+% transpose
+output_transpose = transpose (output);
+% max
+[v, p] = max(output_transpose, [], 2);
+p = mod(p, 10);
+% result: m * 1
 
 
 
