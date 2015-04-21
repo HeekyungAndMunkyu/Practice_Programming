@@ -37,6 +37,8 @@ void printStats (STATS* stats);
 int main (void)
 	{
 	// local declarations
+	srand(time(NULL));	
+
 	QUEUE* queue;
 	int* clockTime;
 	bool* moreCusts;
