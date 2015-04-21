@@ -43,15 +43,34 @@ int main (void)
 	int* clockTime;
 	bool* moreCusts;
 	int* custNum;
+	int numServer;
+	void* allStatus[5];
 	STATUS* status;
+	//STATUS* status1;
+	//STATUS* status2;
+	//STATUS* status3;
+	//STATUS* status4;
+	//STATUS* status5;
 	STATS* stats;
+	int i;
 	
 	// statements
+	
+	// decide how many servers
+	printf ("How many servers do you want? Type 2, 3, 4, or 5");
+	scanf ("%d", &numServer);
+	for (i=1; i <= numServer; i++)
+		{
+		// how to generate status1, status2, status3, status4, status5
+		status = (STATUS*) malloc (sizeof (STATUS));
+		allStatus[i] = status;
+		}	// for
+
 	queue = (QUEUE*) malloc (sizeof (QUEUE));
 	clockTime = (int*) malloc (sizeof (int));
 	moreCusts = (bool*) malloc (sizeof (bool));
 	custNum = (int*) malloc (sizeof (int));
-	status = (STATUS*) malloc (sizeof (STATUS));
+	//status = (STATUS*) malloc (sizeof (STATUS));
 	stats = (STATS*) malloc (sizeof (STATS));
 	
 	queue = createQueue ();
@@ -63,9 +82,12 @@ int main (void)
 	while (*clockTime <= 480 || *moreCusts)
 		{
 		newCustomer (queue, clockTime, custNum);
-		serverFree (queue, clockTime, status, moreCusts);
-		svcComplete (queue, clockTime, status, stats, moreCusts);
-
+		for (i = 1; i <= numServer; i++)
+			{
+			// how to assign status1, status2, status3, status4, status5
+			serverFree (queue, clockTime, allStatus[i], moreCusts);
+			svcComplete (queue, clockTime, allStatus[i], stats, moreCusts);
+			}	// for
 		if (!emptyQueue (queue))
 			{
 			*moreCusts = true;
@@ -94,7 +116,7 @@ void newCustomer (QUEUE* queue, int* clockTime, int* custNum)
 	if (*clockTime > 480)
 		return;
 	custArrived = rand () % 4;
-	if (custArrived == 3)
+	if (custArrived != 0)
 
 		{
 		(*custNum)++;
