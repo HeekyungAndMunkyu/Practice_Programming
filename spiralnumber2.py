@@ -68,9 +68,12 @@ def intoTuple(row, col):
     rowFixed = True # False: columm fixed
     increasing = True # False: decreasing
 
+    print
     print 'rowDifList:', rowDifList, '       colDifList:', colDifList
 
     while len(keyList) < row * col:
+        print
+
         # when row index is fixed
         if rowFixed:
             print 'rowFixed'
@@ -99,6 +102,9 @@ def intoTuple(row, col):
                 rowDif, keyList, increasing)
                 increasing = True
             rowFixed = True
+
+        print
+
     return keyList
 
 
@@ -117,7 +123,10 @@ def tupGenRowFixed(lastRow, lastCol, colDif, keyList, increasing):
         lastCol: lastCol +/- colDif
         keyList: a row of tuples with the same row index appended
     '''
+    print
     print 'lastRow =  ', lastRow, '  lastCol=  ', lastCol, '  colDif =  ', colDif
+    print
+
     for i in range(colDif):
         if increasing:
             keyList.append((lastRow, lastCol + 1 + i))
@@ -128,7 +137,11 @@ def tupGenRowFixed(lastRow, lastCol, colDif, keyList, increasing):
         lastCol = lastCol + colDif
     else:
         lastCol = lastCol - colDif
+
+    print
     print keyList
+    print
+
     return lastRow, lastCol, keyList
 
 
@@ -147,7 +160,10 @@ def tupGenColFixed(lastRow, lastCol, rowDif, keyList, increasing):
         lastCol: lastCol
         keyList: a columm of tuples with the same row index appended
     '''
+    print
     print 'lastRow =  ', lastRow, '  lastCol=  ', lastCol, '  rowDif =  ', rowDif
+    print
+
     for i in range(rowDif):
         if increasing:
             keyList.append((lastRow + 1 + i, lastCol))
@@ -157,7 +173,11 @@ def tupGenColFixed(lastRow, lastCol, rowDif, keyList, increasing):
         lastRow = lastRow + rowDif
     else:
         lastRow = lastRow - rowDif
+
+    print
     print keyList
+    print
+
     return lastRow, lastCol, keyList
 
 
@@ -187,6 +207,8 @@ def printNum(numDict, row, col):
 
     return: prints the dictionary's values in a spiral fashion
     '''
+
+    print '<<< THE ANSWER >>>'
     for i in range(row):
         print '  '.join([str(numDict[(i, j)]) for j in range(col)])
 
