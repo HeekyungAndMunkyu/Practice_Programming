@@ -74,13 +74,13 @@ fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred == y)) * 100);
 
 lambda = 0;
 numExamples = linspace(10000, 90000, 17);
-numNumExamples = size(numExamples, 2);
+p = size(numExamples, 2);
 [error_train, error_val] = ...
     learningCurve([ones(m, 1) X], y, ...
                   [ones(size(Xval, 1), 1) Xval], yval, ...
-                  lambda);
+                  lambda, numExamples);
 
-plot(1:numNumExamples, error_train, 1:numNumExamples, error_val);
+plot(1:p, error_train, 1:p, error_val);
 title('Learning curve for linear regression')
 legend('Train', 'Cross Validation')
 xlabel('Number of training examples')
@@ -88,7 +88,7 @@ ylabel('Error')
 % axis([0 100000 0 15000])
 
 fprintf('# Training Examples\tTrain Error\tCross Validation Error\n');
-for i = numNumExamples
+for i = p
     fprintf('  \t%d\t\t%f\t%f\n', i, error_train(i), error_val(i));
 end
 
