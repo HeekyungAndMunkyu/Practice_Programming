@@ -16,6 +16,8 @@ function [error_train, error_val] = ...
 
 % Number of training examples
 m = size(X, 1);
+n = size(X, 2);
+
 p = size(numExamples, 2)
 % You need to return these values correctly
 error_train = zeros(p, 1);
@@ -52,14 +54,22 @@ error_val   = zeros(p, 1);
 %
 
 % ---------------------- Sample Solution ----------------------
-initial_theta
 
 
-for i = p
-  subX = X(1:numExamples[i], :);
-  suby = y(1:numExamples[i], :);
+
+for i = 1:p
+  subX = X(1:numExamples(i), :);
+  suby = y(1:numExamples(i), :);
 
   [theta] = oneVsAll(subX, suby, 1, lambda);
+
+  theta = transpose(theta);
+
+  %test
+  size(theta)
+  size(subX)
+  size(suby)
+
 
   [J, grad] = lrCostFunction(theta, subX, suby, lambda);
 
