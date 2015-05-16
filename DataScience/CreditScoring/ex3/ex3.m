@@ -28,8 +28,8 @@ m = size(X, 1);
 %Xvalandyval = csvread('~/Practice_Python/DataScience/CreditScoring/crossValidation.csv');
 Xvalandyval = csvread('~/Practice_Python/DataScience/CreditScoring/test.csv');
 
-Xval = Xvalandyval(:, 2:11);
-yval = Xvalandyval(:, 1);
+Xval = Xvalandyval(:, 3:12);
+yval = Xvalandyval(:, 2);
 
 % feature scaling
 for c = 1:size(X, 2)
@@ -75,8 +75,8 @@ fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred == y)) * 100);
 %
 
 lambda = 0;
-%numExamples = linspace(10000, 90000, 17);
-numExamples = linspace(1, 6001, 100);
+numExamples = linspace(10000, 90000, 17);
+%numExamples = linspace(1, 6001, 100);
 
 p = size(numExamples, 2);
 [error_train, error_val] = ...
@@ -89,7 +89,7 @@ title('Learning curve for linear regression')
 legend('Train', 'Cross Validation')
 xlabel('Number of training examples')
 ylabel('Error')
-axis([0 p+1 0 1])
+%axis([0 p+1 0 1])
 
 fprintf('# Training Examples\tTrain Error\tCross Validation Error\n');
 for i = 1:p
