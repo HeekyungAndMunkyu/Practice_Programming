@@ -19,8 +19,8 @@ fprintf('Loading and Visualizing Data ...\n')
 
 %XandY = csvread('cs-training_weka_octave.csv');
 XandY = csvread('~/Practice_Python/DataScience/CreditScoring/training.csv');
-X = XandY(:, 2:11);
-y = XandY(:, 1);
+X = XandY(:, 3:12);
+y = XandY(:, 2);
 size(X)
 size(y)
 m = size(X, 1);
