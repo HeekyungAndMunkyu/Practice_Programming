@@ -18,14 +18,16 @@ num_labels = 1;          % 10 labels, from 1 to 10
 fprintf('Loading and Visualizing Data ...\n')
 
 %XandY = csvread('cs-training_weka_octave.csv');
-XandY = csvread('training.csv');
+XandY = csvread('~/Practice_Python/DataScience/CreditScoring/training.csv');
 X = XandY(:, 2:11);
 y = XandY(:, 1);
 size(X)
 size(y)
 m = size(X, 1);
 
-Xvalandyval = csvread('crossValidation.csv');
+%Xvalandyval = csvread('~/Practice_Python/DataScience/CreditScoring/crossValidation.csv');
+Xvalandyval = csvread('~/Practice_Python/DataScience/CreditScoring/test.csv');
+
 Xval = Xvalandyval(:, 2:11);
 yval = Xvalandyval(:, 1);
 
@@ -73,7 +75,9 @@ fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred == y)) * 100);
 %
 
 lambda = 0;
-numExamples = linspace(10000, 90000, 17);
+%numExamples = linspace(10000, 90000, 17);
+numExamples = linspace(1, 6001, 100);
+
 p = size(numExamples, 2);
 [error_train, error_val] = ...
     learningCurve([ones(m, 1) X], y, ...
