@@ -17,16 +17,25 @@ num_labels = 1;          % 10 labels, from 1 to 10
 % Load Training Data
 fprintf('Loading and Visualizing Data ...\n')
 
-XandY = csvread('cs-training_weka_octave.csv');
-X = XandY(:, 1:10);
-y = XandY(:, 11);
+%XandY = csvread('cs-training_weka_octave.csv');
+XandY = csvread('training.csv');
+X = XandY(:, 2:11);
+y = XandY(:, 1);
 size(X)
 size(y)
 m = size(X, 1);
 
+Xvalandyval = csvread('crossValidation.csv');
+Xval = Xvalandyval(:, 2:11);
+yval = Xvalandyval(:, 1);
+
 % feature scaling
 for c = 1:size(X, 2)
   X(:, c) = (X(:, c) - mean(X(:, c)))/std(X(:, c));
+endfor
+
+for c = 1:size(Xval, 2)
+  Xval(:, c) = (Xval(:, c) - mean(Xval(:, c)))/std(Xval(:, c));
 endfor
 
 
@@ -53,3 +62,35 @@ pause;
 pred = predictOneVsAll(all_theta, X);
 
 fprintf('\nTraining Set Accuracy: %f\n', mean(double(pred == y)) * 100);
+
+
+
+%% ================= learning curve ===============
+%  Next, you should implement the learningCurve function.
+%
+%  Write Up Note: Since the model is underfitting the data, we expect to
+%                 see a graph with "high bias" -- slide 8 in ML-advice.pdf
+%
+
+lambda = 0;
+numExamples = linspace(10000, 90000, 17);
+numNumExamples = size(numExamples, 2);
+[error_train, error_val] = ...
+    learningCurve([ones(m, 1) X], y, ...
+                  [ones(size(Xval, 1), 1) Xval], yval, ...
+                  lambda);
+
+plot(1:numNumExamples, error_train, 1:numNumExamples, error_val);
+title('Learning curve for linear regression')
+legend('Train', 'Cross Validation')
+xlabel('Number of training examples')
+ylabel('Error')
+% axis([0 100000 0 15000])
+
+fprintf('# Training Examples\tTrain Error\tCross Validation Error\n');
+for i = numNumExamples
+    fprintf('  \t%d\t\t%f\t%f\n', i, error_train(i), error_val(i));
+end
+
+fprintf('Program paused. Press enter to continue.\n');
+pause;
