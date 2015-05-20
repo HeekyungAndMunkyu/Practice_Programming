@@ -37,7 +37,9 @@ allProbs = sigmoid(X * transpose(all_theta));
 
 %[value, p] = max(allProbs, [], 2);  % returns value and position
 
-allProbs = allProbs > 0.5;
+
+threshold = 0.4
+allProbs = allProbs > threshold;
 
 
 
