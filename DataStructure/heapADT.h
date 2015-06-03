@@ -12,7 +12,7 @@ typedef struct {
 HEAP* heapCreate (int maxSize, int (*compare) (void* argu1, void* argu2));
 
 bool heapInsert (HEAP* heap, void* dataPtr);
-bool heapDelete (HEAP* heap, void* dataOutPtr);
+bool heapDelete (HEAP* heap, void** dataOutPtr);
 
 int heapCount (HEAP* heap);
 
@@ -67,8 +67,8 @@ bool heapInsert (HEAP* heap, void* dataPtr)
 		return false;
 
 	// Neither empty nor full
-	++(heap->last)
-	++(heap->size);
+	(heap->last)++;
+	(heap->size)++;
 	heap->heapAry[heap->last] = dataPtr;
 	_reheapUp(heap, heap->last);
 
@@ -105,7 +105,7 @@ static void _reheapUp (HEAP* heap, int childLoc)
 
 
 /* ========== heapDelete ========== */
-bool heapDelete (HEAP* heap, void* dataOutPtr)
+bool heapDelete (HEAP* heap, void** dataOutPtr)
 {
 //Data Structure
 
