@@ -16,6 +16,7 @@ typedef struct {
 	int priority;
 	int serial;
 	} CUST;
+
 // Algorithms
 int compareCust (void* cust1, void* cust2);
 void processPQ (HEAP* heap);
@@ -24,6 +25,10 @@ CUST* getCust (void);
 
 int main (void)
 {
+	//Data Structure
+	HEAP* prQueue;
+
+	//Algorithms
 	printf("Begin Priority Queue Demonstration\n");
 	
 	prQueue = heapCreate (maxQueue, compareCust);
