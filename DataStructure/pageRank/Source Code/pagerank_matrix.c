@@ -156,14 +156,39 @@ void loadAdjacencyMatrix(char* inputFile, double** matrix) {
 void generateTPMatrix(double** matrix, int n) {
 	// ASSIGNMENT FUNCTION NO.1
 	// PLEASE IMPLEMENT THE BODY
+	//data structure
+	int count = 0;
 
+	//algorithms
 	// for every rows
+	for (i = 0; i < n; i++)
+		{
+		//count 1's
+		for (j = 0; j < n; j++)
+			{
+				if (matrix[i][j] == 1)
+					count++;
+			}
 		// if no inlink
+		if (count == 0)
 			//distribute 1/n
+			{
+				for (j = 0; j < n; j++)
+					matrix[i][j] = 1.0 / n;
+			}
 
 		// else
+		else
+			{
 			//count number of inlinks
 			//distribute 1/count
+				for (j = 0; j < n; j++)
+					{
+						if (matrix[i][j] == 1)
+							matrix[i][j] = 1.0 / count;
+					}//for
+			}//else
+		}//for every rows
 }
 
 // Returns a vector that contains the PageRank scores for each page i
