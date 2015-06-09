@@ -22,6 +22,7 @@ int compareCust (void* cust1, void* cust2);
 void processPQ (HEAP* heap);
 char menu (void);
 CUST* getCust (void);
+void printSerial (void* cust);
 
 int main (void)
 {
@@ -30,17 +31,17 @@ int main (void)
 
 	//Algorithms
 	printf("Begin Priority Queue Demonstration\n");
-	
+
 	prQueue = heapCreate (maxQueue, compareCust);
 	processPQ (prQueue);
 
 	printf("End Priority Queue Demonstration\n");
-	
+
 	return 0;
 }	// main
 
 
-/* ========== compareCust ========= 
+/* ========== compareCust =========
 	Compare priority based on serial
 		Pre Given two CUST
 		Post if cust1 > cust2 return +1
@@ -73,6 +74,8 @@ void processPQ (HEAP* prQueue)
 	bool result;
 	char option;
 	int numCusts = 0;
+	int i;
+
 
 	//Algorithms
 	do
@@ -90,7 +93,7 @@ void processPQ (HEAP* prQueue)
 			if (!result)
 				printf("Error inserting into heap\n"), exit (101);
 			break;
-			
+
 
 			//delete
 			case 'd':
@@ -103,6 +106,17 @@ void processPQ (HEAP* prQueue)
 				printf("Customer %4d deleted\n", cust->id);
 				numCusts--;
 				}	//else
+
+			//traverse
+			case 't':
+			printf("TRAVERSE\n");
+			printf("size: %4d\n", prQueue->size);
+			for (i = 1; i < prQueue->size; i++)
+				{
+				printf("traverse\n");
+				cust = (CUST*) prQueue->heapAry[i];
+				printf("%d\n", cust->serial);
+				}
 			}	//switch
 		} while (option != 'q');
 	return;
@@ -120,6 +134,7 @@ char menu (void)
 	printf("\n=========== Menu ==========\n");
 	printf(" e : Enter Customer Flight\n");
 	printf(" d : Delete Customer Flisht\n");
+	printf(" t : Traverse the Customer Serial Number\n");
 	printf(" q : Quit.\n");
 	printf("==========================\n");
 	printf("Please enter your choice:  ");
@@ -128,11 +143,12 @@ char menu (void)
 		{
 		scanf("%c", &option);
 		option = tolower (option);
-		
+
 		switch (option)
 			{
 			case 'e':
 			case 'd':
+			case 't':
 			case 'q': valid = true;
 					break;
 
@@ -146,7 +162,7 @@ char menu (void)
 
 
 /* ========== getCust ========= */
-CUST* getCust (void)	
+CUST* getCust (void)
 	{
 	//Data Structure
 	CUST* cust;
@@ -155,11 +171,25 @@ CUST* getCust (void)
 	cust = (CUST*) malloc (sizeof (CUST));
 	if (!cust)
 		printf("Memory overflow in getCust\n"), exit (200);
-	
+
 	printf("Enter customer id:  ");
 	scanf("%d", &cust->id);
 	printf("Enter customer priority:  ");
 	scanf("%d", &cust->priority);
-	
+
 	return cust;
+	}
+
+
+/* ========= printSerial ========== */
+void printSerial (void* cust)
+	{
+		int serial;
+		CUST c;
+
+		//statements
+		c = *(CUST*) cust;
+		serial = c.serial;
+
+		printf("%d", serial);
 	}
