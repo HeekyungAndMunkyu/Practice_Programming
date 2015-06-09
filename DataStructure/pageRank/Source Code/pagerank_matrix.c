@@ -185,19 +185,11 @@ void generateTPMatrix(double** matrix, int n) {
 				printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
 				if (matrix[i][j] == 1)
 					{
-
-					//test
-					printf("i: %d, j: %d", i, j);
-
-					//
-
 					count++;
 					} // if
 				}//for every columns
 			//test
-		printf("count: %d", count);
-		printf("\n");
-
+		printf("count: %d\n", count);
 
 
 		// update weights
@@ -208,6 +200,8 @@ void generateTPMatrix(double** matrix, int n) {
 				int j;
 				for (j = 0; j < n; j++)
 					matrix[i][j] = 1.0 / n;
+					printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
+
 			}
 
 		// else (there is outlink)
@@ -219,6 +213,8 @@ void generateTPMatrix(double** matrix, int n) {
 					{
 						if (matrix[i][j] == 1)
 							matrix[i][j] = 1.0 / count;
+							printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
+
 					}//for
 
 			}//else
