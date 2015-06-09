@@ -146,9 +146,9 @@ void loadAdjacencyMatrix(char* inputFile, double** matrix) {
 		//test
 		printf("loadAdjacency matrix[%d][%d]\n", i, j);
 		//
-		//while (element = strtok(NULL, " ")) {
-		while (element) {
-			element = strtok(NULL, " ");
+		while (element = strtok(NULL, " ")) {
+		//while (element) {
+			//element = strtok(NULL, " ");
 			matrix[i][j++] = (double)atoi(element);
 			printf("%s", element);
 			printf("loadAdjacency matrix[%d][%d]\n", i, j);
