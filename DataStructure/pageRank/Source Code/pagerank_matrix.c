@@ -172,11 +172,13 @@ void generateTPMatrix(double** matrix, int n) {
 		int j;
 		for (j = 0; j < n; j++)
 			{
+				printf("matrix[%d][%d] = %d", i, j, matrix[i][j]);
 				if (matrix[i][j] == 1)
 					{
 
 					//test
 					printf("i: %d, j: %d", i, j);
+
 					//
 
 					count++;
