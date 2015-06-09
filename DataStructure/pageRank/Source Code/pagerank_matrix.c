@@ -165,25 +165,30 @@ void generateTPMatrix(double** matrix, int n) {
 	int i;
 	for (i = 0; i < n; i++)
 		{
-		count = 0;
+		printf("start row #%d\n", i);
 		//count 1's (number of outlinks)
+		count = 0;
+
 		int j;
 		for (j = 0; j < n; j++)
 			{
 				if (matrix[i][j] == 1)
+					{
 
 					//test
 					printf("i: %d, j: %d", i, j);
 					//
 
 					count++;
-
+					} // if
 
 			//test
 			printf("count: %d", count);
 			printf("\n");
 			//
 
+
+			// update weights
 			// if no outlink
 			if (count == 0)
 				//distribute 1/n
