@@ -165,14 +165,14 @@ void generateTPMatrix(double** matrix, int n) {
 	int i;
 	for (i = 0; i < n; i++)
 		{
-		//count 1's
+		//count 1's (number of outlinks)
 		int j;
 		for (j = 0; j < n; j++)
 			{
 				if (matrix[i][j] == 1)
 					count++;
 			}
-		// if no inlink
+		// if no outlink
 		if (count == 0)
 			//distribute 1/n
 			{
@@ -181,11 +181,10 @@ void generateTPMatrix(double** matrix, int n) {
 					matrix[i][j] = 1.0 / n;
 			}
 
-		// else
+		// else (there is outlink)
 		else
 			{
-			//count number of inlinks
-			//distribute 1/count
+			//distribute 1/outlinks
 				int j;
 				for (j = 0; j < n; j++)
 					{
@@ -202,9 +201,27 @@ void generateTPMatrix(double** matrix, int n) {
 // int n: number of rows (columns) in the [matrix]
 // double d: damping factor (normally set to 0.85)
 // int numIteration: number of iteration
-double* calculatePageRank(double* vector, double** matrix, int n, double d, int numIteration) {
+double* calculatePageRank(double* vector, double** matrix, int n, double d, \
+	int numIteration) {
 	// ASSIGNMENT FUNCTION NO.2
 	// PLEASE RE-IMPLEMENT THE BODY
+	/*
+	int rank;
+
+	// for all rows (pages)
+	int i;
+	for (i = 0; i < n; i++)
+		{
+		//caculate page rank
+		//for all incoming links
+		for ()
+			//add rank/outbound links to rank
+		//multiply by d, add (1-d)*(1/n)
+
+		//assign to vector
+		vector[i] = rank;
+		}
+*/
 	return vector;
 }
 
