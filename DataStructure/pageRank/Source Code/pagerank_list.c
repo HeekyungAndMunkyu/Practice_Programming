@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 	// argv[4] is the number of iteration (in this assignment, set to 100)
 	// argv[5] is the file name in which you want to record the PageRank scores
 	// argv[6] specifies top K
-	
+
 	// Initialize variables from the command-line arguments
 	char* inputFile = argv[1];
 	int numPages = atoi(argv[2]);
@@ -42,39 +42,39 @@ int main(int argc, char *argv[]) {
 	int numIteration = atoi(argv[4]);
 	char* outputFile = argv[5];
 	int topK = atoi(argv[6]);
-	
+
 	// Allocate and initialize a vector for PageRank
 	double* vector = allocateVector(numPages, 1.0/numPages);
-	
+
 	// Load the inverse adjacency lists from [inputFile]
 	P_IALIST invAdjLists = loadInverseAdjacencyList(inputFile, numPages);
 
 	// Time variables to evalute the processing time
 	time_t beginTime = 0, terTime = 0;
-	
+
 	// Record the CPU clock for beginning the calculation
 	beginTime = clock();
-	
+
 	/* ASSIGNMENT FUNCTION NO.3*/
 	// Calculate the PageRank scores and store them in the vector
 	vector = calculatePageRank(vector, invAdjLists, numPages, d, numIteration);
-	
+
 	// Record the CPU clock for terminating the calculation
 	terTime = clock();
-	
+
 	// Print the processing time
 	printf("Elapsed time is: %f sec\n", (double)(terTime-beginTime)/(double)CLOCKS_PER_SEC);
-	
+
 	// Output the PageRank scores
 	writeVector(outputFile, vector, numPages);
-	
+
 	// Print out the top k ranked pages and the corresponding scores
 	printTopK(vector, numPages, topK);
-	
+
 	// Free the allocated vector and inverse adjacency list
 	free(vector);
 	freeInverseAdjacencyList(invAdjLists, numPages);
-	
+
 	return 0;
 }
 
@@ -84,13 +84,13 @@ int main(int argc, char *argv[]) {
 double* allocateVector(int n, double initValue) {
 	// A variable for iteration
 	int i;
-	
+
 	// Allocate a vector
 	double* vector = (double*)malloc(sizeof(double)*n);
-	
+
 	// Initialize each element in the vector with the default value;
 	for (i = 0; i < n; i++) vector[i] = initValue;
-	
+
 	// Return the vector
 	return vector;
 }
@@ -107,23 +107,23 @@ P_IALIST loadInverseAdjacencyList(char* fileInput, int n) {
 	FILE *stream;
 	int pageID;
 	char* element;
-	
+
 	// Allocate an IALIST-typed array with n elements
 	P_IALIST invAdjLists = (P_IALIST)malloc(sizeof(*invAdjLists)*n);
-	
+
 	// Initialize each element in the array
 	for (i = 0; i < n; i++) {
 		invAdjLists[i].numOutlinks = 0;
 		invAdjLists[i].first = NULL;
 	}
-	
+
 	// Open file stream
 	stream = fopen(fileInput, "r");
 	if (stream == NULL) {
 		printf("File open error\n");
 		exit(1);
 	}
-	
+
 	// For each page i, generate a linked list for inlink pages
 	i = 0;
 	while (!feof(stream)) {
@@ -139,7 +139,7 @@ P_IALIST loadInverseAdjacencyList(char* fileInput, int n) {
 		i++;
 	}
 	fclose(stream);
-	
+
 	// For each page i,
 	for (i = 0; i < n; i++) {
 		// If page i has no outlink pages,
@@ -151,7 +151,7 @@ P_IALIST loadInverseAdjacencyList(char* fileInput, int n) {
 			}
 		}
 	}
-	
+
 	// Return the inverse adjacency lists
 	return invAdjLists;
 }
@@ -164,7 +164,7 @@ P_IALIST loadInverseAdjacencyList(char* fileInput, int n) {
 void insert(P_DATA *first, int pageID) {
 	P_DATA temp = (P_DATA)malloc(sizeof(struct DATA));
 	temp->pageID = pageID;
-	
+
 	if (*first) {
 		temp->link = *first;
 		*first = temp;
@@ -180,9 +180,30 @@ void insert(P_DATA *first, int pageID) {
 // int n: number of pages (number of elements in the [invAdjLists])
 // double d: damping factor (normally set to 0.85)
 // int numIteration: number of iteration
-double* calculatePageRank(double* vector, P_IALIST invAdjLists, int n, double d, int numIteration) {
+double* calculatePageRank(double* vector, P_IALIST invAdjLists, int n, double d, \
+	int numIteration) {
 	// ASSIGNMENT FUNCTION NO.3
 	// PLEASE RE-IMPLEMENT THE BODY
+	//Data Structure
+	double rank;
+	double tempVector [n];
+
+	//Algorithms
+	//for numIterations
+	int m;
+	for (m = 0; m < numIteration; m++)
+		{
+		//for vertex
+			//initialize rank = 0
+			//for inlink vertex
+				//rank += weight/outlinks
+			//multiply by d and etc
+			//assign rank to tempVector
+
+		//assign tempVector to vertex node
+
+		}//for numIterations
+
 	return vector;
 }
 
@@ -194,26 +215,26 @@ void writeVector(char* outputFile, double* vector, int n) {
 	char strElement[32];
 	FILE *stream;
 	int i;
-	
+
 	// Open file stream withe [outputFile] to write the vector
 	stream = fopen(outputFile, "wb");
 	if (stream == NULL) {
 		printf("Output stream is NULL. Program terminates.\n");
 		exit(1);
 	}
-	
+
 	// For each element in the vector
 	for (i = 0; i < n; i++) {
 		// Generate a string that represents the element
 		sprintf(strElement, "%f\n", vector[i]);
-		
+
 		// Write the string
 		if (fputs(strElement, stream) == EOF) {
 			printf("fputc() returns NULL. Program terminates.\n");
 			exit(1);
 		}
 	}
-	
+
 	// Close the file stream
 	fclose(stream);
 }
@@ -227,44 +248,44 @@ void printTopK(double* vector, int n, int topK) {
 		int pageID;
 		double score;
 	} ID_SCORE;
-	
+
 	int i, j;
 	ID_SCORE* rank;
 	int index;
 	ID_SCORE temp;
-	
+
 	// If topK is not positive or is greater than n,
 	// then do nothing
 	if ((topK <= 0) || (n < topK)) return;
-	
+
 	// Allocate an array of ID_SCORE
 	rank = (ID_SCORE*)malloc(sizeof(ID_SCORE)*n);
-	
+
 	// Initilize the array
 	for (i = 0; i < n; i++) {
 		rank[i].pageID = i;
 		rank[i].score = vector[i];
 	}
-	
+
 	// Selection Sort
 	for (i = 0; i < n; i++) {
 		index = i;
-		
+
 		for (j = i; j < n; j++) {
 			if (rank[index].score < rank[j].score) index = j;
 		}
-		
+
 		temp = rank[i];
 		rank[i] = rank[index];
 		rank[index] = temp;
 	}
-	
+
 	// Print the top k ranked pages and the corresponding scores
 	printf("Top-%d [pageID: score]\n", topK);
 	for (i = 0; i < topK; i++) {
 		printf("%4d: %f\n", rank[i].pageID, rank[i].score);
 	}
-	
+
 	// Free the allocated rank vector
 	free(rank);
 }
@@ -287,7 +308,7 @@ void freeInverseAdjacencyList(P_IALIST invAdjLists, int n) {
 			pData = temp;
 		}
 	}
-	
+
 	// Free the IALIST-typed array
 	free(invAdjLists);
 }

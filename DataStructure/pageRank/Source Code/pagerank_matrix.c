@@ -136,22 +136,12 @@ void loadAdjacencyMatrix(char* inputFile, double** matrix) {
 	// Load the adjacency matrix
 	while (!feof(stream)) {
 		if (fgets(row, 15000, stream) == NULL) break;
-		printf("%s", row);
+
 		j = 0;
 		element = strtok(row, " ");
-		//test
-		printf("%s", element);
-		//
-		matrix[i][j] = (double)atoi(element);
-		//test
-		printf("loadAdjacency matrix[%d][%d]\n", i, j);
-		//
+		matrix[i][j++] = (double)atoi(element);
 		while ((element = strtok(NULL, " "))) {
-		//while (element) {
-			//element = strtok(NULL, " ");
 			matrix[i][j++] = (double)atoi(element);
-			printf("%s", element);
-			printf("loadAdjacency matrix[%d][%d]\n", i, j);
 		}
 
 		i++;
@@ -160,6 +150,7 @@ void loadAdjacencyMatrix(char* inputFile, double** matrix) {
 	// Close the file stream
 	fclose(stream);
 }
+
 
 // Generates the transition probability matrix from the adjacency matrix
 // double** matrix: n*n array containing the adjacency matrix
@@ -235,8 +226,8 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 	// ASSIGNMENT FUNCTION NO.2
 	// PLEASE RE-IMPLEMENT THE BODY
 	//data structure
-	double rank = 0.0;
-	double* tempVector = (double*)malloc(sizeof(double)*n);
+	double rank;
+	double tempVector [n];
 
 	//algorithms
 	// for all columns (pages)
@@ -246,6 +237,7 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 		int j;
 		for (j = 0; j < n; j++)
 			{
+			rank = 0.0;
 			//caculate page rank
 			//for all incoming links
 			int i;
@@ -268,8 +260,14 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 			//assign to vector
 			tempVector[j] = rank;
 			printf("in vector[%d], %f\n\n", j, vector[j]);
-		}// for all columns
-		vector = tempVector;
+			}// for all columns
+
+		int i;
+		for (i = 0; i< n; i++)
+			{
+				vector[i] = tempVector[i];
+			}
+
 	}// while
 	return vector;
 }
