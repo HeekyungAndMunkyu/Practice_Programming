@@ -222,7 +222,7 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 			rank += vector[i] * matrix[i][j];
 			}
 		//multiply by d, add (1-d)*(1/n)
-		rank = d * rank + (1 - d) * (1 / n);
+		rank = d * rank + (1 - d) * (1.0 / n);
 
 		//assign to vector
 		vector[j] = rank;
