@@ -181,7 +181,7 @@ void generateTPMatrix(double** matrix, int n) {
 
 					count++;
 					} // if
-
+				}//for every columns
 			//test
 			printf("count: %d", count);
 			printf("\n");
@@ -210,7 +210,7 @@ void generateTPMatrix(double** matrix, int n) {
 						}//for
 
 				}//else
-			}//for every columns
+
 		}//for every rows
 }
 
