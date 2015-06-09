@@ -170,11 +170,17 @@ void generateTPMatrix(double** matrix, int n) {
 		for (j = 0; j < n; j++)
 			{
 				if (matrix[i][j] == 1)
+				
+					//test
+					printf("i: %d, j: %d", i, j);
+					//
+
 					count++;
 			}
 
 		//test
-		printf("%d", count);
+		printf("count: %d", count);
+		printf("\n");
 		//
 
 		// if no outlink
