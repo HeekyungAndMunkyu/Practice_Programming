@@ -235,7 +235,7 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 	// ASSIGNMENT FUNCTION NO.2
 	// PLEASE RE-IMPLEMENT THE BODY
 	//data structure
-	int rank = 0;
+	float rank = 0.0;
 
 	//algorithms
 	// for all columns (pages)
