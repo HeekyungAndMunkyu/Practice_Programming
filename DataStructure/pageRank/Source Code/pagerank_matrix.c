@@ -136,7 +136,7 @@ void loadAdjacencyMatrix(char* inputFile, double** matrix) {
 	// Load the adjacency matrix
 	while (!feof(stream)) {
 		if (fgets(row, 15000, stream) == NULL) break;
-
+		printf("%s", row);
 		j = 0;
 		element = strtok(row, " ");
 		//test
