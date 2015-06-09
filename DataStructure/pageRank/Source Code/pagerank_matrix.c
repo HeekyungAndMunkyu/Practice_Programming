@@ -236,6 +236,7 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 	// PLEASE RE-IMPLEMENT THE BODY
 	//data structure
 	double rank = 0.0;
+	double* tempVector = (double*)malloc(sizeof(double)*n);
 
 	//algorithms
 	// for all columns (pages)
@@ -263,10 +264,12 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 
 			//multiply by d, add (1-d)*(1/n)
 			rank = d * rank + (1.0 - d) * (1.0 / n);
-			printf("multiplied by d and etc, %f", rank);
+			printf("multiplied by d and etc, %f\n", rank);
 			//assign to vector
-			vector[j] = rank;
+			tempVector[j] = rank;
+			printf("in vector[%d], %f\n\n", j, vector[j]);
 		}// for all columns
+		vector = tempVector;
 	}// while
 	return vector;
 }
