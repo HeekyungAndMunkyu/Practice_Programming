@@ -223,7 +223,15 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 				{
 				//add rank/outbound links to rank
 				rank += vector[i] * matrix[i][j];
+
+				//test
+				printf("%d", rank)
+				//
+
 				}
+
+
+
 			//multiply by d, add (1-d)*(1/n)
 			rank = d * rank + (1.0 - d) * (1.0 / n);
 
