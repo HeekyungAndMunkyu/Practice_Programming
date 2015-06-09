@@ -235,7 +235,7 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 	// ASSIGNMENT FUNCTION NO.2
 	// PLEASE RE-IMPLEMENT THE BODY
 	//data structure
-	float rank = 0.0;
+	double rank = 0.0;
 
 	//algorithms
 	// for all columns (pages)
@@ -254,7 +254,7 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 				rank += vector[i] * matrix[i][j];
 
 				//test
-				printf("%f * %f -> %d\n", vector[i], matrix[i][j], rank);
+				printf("%f * %f -> %f\n", vector[i], matrix[i][j], rank);
 				//
 
 				}
@@ -263,7 +263,7 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 
 			//multiply by d, add (1-d)*(1/n)
 			rank = d * rank + (1.0 - d) * (1.0 / n);
-
+			printf("multiplied by d and etc, %f", rank);
 			//assign to vector
 			vector[j] = rank;
 		}// for all columns
