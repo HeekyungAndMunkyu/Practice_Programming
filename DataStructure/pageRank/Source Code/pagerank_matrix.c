@@ -205,23 +205,29 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 	int numIteration) {
 	// ASSIGNMENT FUNCTION NO.2
 	// PLEASE RE-IMPLEMENT THE BODY
-	/*
+	//data structure
 	int rank;
 
-	// for all rows (pages)
-	int i;
-	for (i = 0; i < n; i++)
+	//algorithms
+	// for all columns (pages)
+	int j;
+	for (j = 0; j < n; j++)
 		{
 		//caculate page rank
 		//for all incoming links
-		for ()
+		int i;
+		for (i = 0; i < n; i++)
+			{
 			//add rank/outbound links to rank
+			rank += vector[i] * matrix[i][j];
+			}
 		//multiply by d, add (1-d)*(1/n)
+		rank = d * rank + (1 - d) * (1 / n);
 
 		//assign to vector
-		vector[i] = rank;
-		}
-*/
+		vector[j] = rank;
+	}// for all columns
+
 	return vector;
 }
 
