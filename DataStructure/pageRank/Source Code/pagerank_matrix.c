@@ -172,6 +172,11 @@ void generateTPMatrix(double** matrix, int n) {
 				if (matrix[i][j] == 1)
 					count++;
 			}
+
+		//test
+		printf("%d", count);
+		//
+
 		// if no outlink
 		if (count == 0)
 			//distribute 1/n
@@ -225,7 +230,7 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 				rank += vector[i] * matrix[i][j];
 
 				//test
-				printf("%d", rank)
+				printf("%d", rank);
 				//
 
 				}
