@@ -140,7 +140,7 @@ void loadAdjacencyMatrix(char* inputFile, double** matrix) {
 		j = 0;
 		element = strtok(row, " ");
 		matrix[i][j++] = (double)atoi(element);
-		while (element = strtok(NULL, " ")) {
+		while (element == strtok(NULL, " ")) {
 			matrix[i][j++] = (double)atoi(element);
 		}
 
@@ -162,9 +162,11 @@ void generateTPMatrix(double** matrix, int n) {
 
 	//algorithms
 	// for every rows
+	int i;
 	for (i = 0; i < n; i++)
 		{
 		//count 1's
+		int j;
 		for (j = 0; j < n; j++)
 			{
 				if (matrix[i][j] == 1)
@@ -174,6 +176,7 @@ void generateTPMatrix(double** matrix, int n) {
 		if (count == 0)
 			//distribute 1/n
 			{
+				int j;
 				for (j = 0; j < n; j++)
 					matrix[i][j] = 1.0 / n;
 			}
@@ -183,6 +186,7 @@ void generateTPMatrix(double** matrix, int n) {
 			{
 			//count number of inlinks
 			//distribute 1/count
+				int j;
 				for (j = 0; j < n; j++)
 					{
 						if (matrix[i][j] == 1)
