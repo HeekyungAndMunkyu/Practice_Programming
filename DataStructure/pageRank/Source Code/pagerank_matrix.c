@@ -211,7 +211,7 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 	//algorithms
 	// for all columns (pages)
 	int m;
-	while (m = 0; m < numIteration; m++)
+	for (m = 0; m < numIteration; m++)
 	{
 		int j;
 		for (j = 0; j < n; j++)
