@@ -199,8 +199,10 @@ void generateTPMatrix(double** matrix, int n) {
 			{
 				int j;
 				for (j = 0; j < n; j++)
+					{
 					matrix[i][j] = 1.0 / n;
 					printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
+					}
 
 			}
 
@@ -233,7 +235,7 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 	// ASSIGNMENT FUNCTION NO.2
 	// PLEASE RE-IMPLEMENT THE BODY
 	//data structure
-	int rank;
+	int rank = 0;
 
 	//algorithms
 	// for all columns (pages)
@@ -252,7 +254,7 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 				rank += vector[i] * matrix[i][j];
 
 				//test
-				printf("%d", rank);
+				printf("%f * %f -> %d\n", vector[i], matrix[i][j], rank);
 				//
 
 				}
