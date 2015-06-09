@@ -158,51 +158,54 @@ void generateTPMatrix(double** matrix, int n) {
 	// ASSIGNMENT FUNCTION NO.1
 	// PLEASE IMPLEMENT THE BODY
 	//data structure
-	int count = 0;
+	int count;
 
 	//algorithms
 	// for every rows
 	int i;
 	for (i = 0; i < n; i++)
 		{
+		count = 0;
 		//count 1's (number of outlinks)
 		int j;
 		for (j = 0; j < n; j++)
 			{
 				if (matrix[i][j] == 1)
-				
+
 					//test
 					printf("i: %d, j: %d", i, j);
 					//
 
 					count++;
-			}
 
-		//test
-		printf("count: %d", count);
-		printf("\n");
-		//
 
-		// if no outlink
-		if (count == 0)
-			//distribute 1/n
-			{
-				int j;
-				for (j = 0; j < n; j++)
-					matrix[i][j] = 1.0 / n;
-			}
+			//test
+			printf("count: %d", count);
+			printf("\n");
+			//
 
-		// else (there is outlink)
-		else
-			{
-			//distribute 1/outlinks
-				int j;
-				for (j = 0; j < n; j++)
-					{
-						if (matrix[i][j] == 1)
-							matrix[i][j] = 1.0 / count;
-					}//for
-			}//else
+			// if no outlink
+			if (count == 0)
+				//distribute 1/n
+				{
+					int j;
+					for (j = 0; j < n; j++)
+						matrix[i][j] = 1.0 / n;
+				}
+
+			// else (there is outlink)
+			else
+				{
+				//distribute 1/outlinks
+					int j;
+					for (j = 0; j < n; j++)
+						{
+							if (matrix[i][j] == 1)
+								matrix[i][j] = 1.0 / count;
+						}//for
+
+				}//else
+			}//for every columns
 		}//for every rows
 }
 
