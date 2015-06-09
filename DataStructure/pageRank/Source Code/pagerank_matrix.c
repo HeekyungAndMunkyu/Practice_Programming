@@ -140,6 +140,9 @@ void loadAdjacencyMatrix(char* inputFile, double** matrix) {
 		j = 0;
 		element = strtok(row, " ");
 		matrix[i][j++] = (double)atoi(element);
+		//test
+		printf("loadAdjacency matrix[%d][%d]\n", i, j);
+		//
 		while (element == strtok(NULL, " ")) {
 			matrix[i][j++] = (double)atoi(element);
 		}
@@ -172,7 +175,7 @@ void generateTPMatrix(double** matrix, int n) {
 		int j;
 		for (j = 0; j < n; j++)
 			{
-				printf("matrix[%d][%d] = %d", i, j, matrix[i][j]);
+				printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
 				if (matrix[i][j] == 1)
 					{
 
