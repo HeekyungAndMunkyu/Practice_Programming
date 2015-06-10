@@ -198,6 +198,7 @@ double* calculatePageRank(double* vector, P_IALIST invAdjLists, int n, double d,
 		int i;
 		for (i = 0; i < n; i++)
 			{
+			printf("for %d", i);
 			//initialize rank = 0.0
 			rank = 0.0;
 
@@ -205,6 +206,7 @@ double* calculatePageRank(double* vector, P_IALIST invAdjLists, int n, double d,
 			node = invAdjLists[i].first;
 			while (node->link != NULL)
 				{
+				printf("	inlink: %f", node->pageID);
 				//rank += weight/outlinks
 				rank += vector[node->pageID] / invAdjLists[node->pageID].numOutlinks;
 				node = node->link;
