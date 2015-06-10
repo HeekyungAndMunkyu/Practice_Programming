@@ -7,12 +7,12 @@
 
 // For the inverse adjacency matrix
 typedef struct DATA *P_DATA;
-typedef struct DATA {
+struct DATA {
 	int pageID;
 	P_DATA link;
 };
 typedef struct IALIST *P_IALIST;
-typedef struct IALIST {
+struct IALIST {
 	int numOutlinks;
 	P_DATA first;
 };
@@ -129,7 +129,7 @@ P_IALIST loadInverseAdjacencyList(char* fileInput, int n) {
 	while (!feof(stream)) {
 		if (fgets(line, 10000, stream) == NULL) break;
 		element = strtok(line, ": ");
-		while (element = strtok(NULL, " ")) {
+		while ((element = strtok(NULL, " "))) {
 			pageID = atoi(element);
 			if (pageID != -1) {
 				insert(&invAdjLists[i].first, pageID);
@@ -187,6 +187,7 @@ double* calculatePageRank(double* vector, P_IALIST invAdjLists, int n, double d,
 	//Data Structure
 	double rank;
 	double tempVector [n];
+	P_DATA node;
 
 	//Algorithms
 	//for numIterations
@@ -194,14 +195,31 @@ double* calculatePageRank(double* vector, P_IALIST invAdjLists, int n, double d,
 	for (m = 0; m < numIteration; m++)
 		{
 		//for vertex
-			//initialize rank = 0
-			//for inlink vertex
-				//rank += weight/outlinks
-			//multiply by d and etc
-			//assign rank to tempVector
+		int i;
+		for (i = 0; i < n; i++)
+			{
+			//initialize rank = 0.0
+			rank = 0.0;
 
+			//for inlink vertex
+			node = invAdjLists[i].first;
+			while (node->link != NULL)
+				{
+				//rank += weight/outlinks
+				rank += vector[node->pageID] / invAdjLists[node->pageID].numOutlinks;
+				node = node->link;
+				}
+			//multiply by d and etc
+			rank = d * rank + (1.0 - d) * (1.0 / n);
+			//assign rank to tempVector
+			tempVector[i] = rank;
+			}
 		//assign tempVector to vertex node
 
+		for (i = 0; i< n; i++)
+			{
+				vector[i] = tempVector[i];
+			}
 		}//for numIterations
 
 	return vector;

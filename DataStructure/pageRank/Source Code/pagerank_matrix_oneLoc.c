@@ -157,20 +157,17 @@ void loadAdjacencyMatrix(char* inputFile, double** matrix) {
 // int n: number of rows (of columns) in the matrix
 void generateTPMatrix(double** matrix, int n) {
 	// ASSIGNMENT FUNCTION NO.1
-	// PLEASE IMPLEMENT THE BODY
 	//data structure
 	int count;
 	int oneLocations [n];
 
 	//algorithms
-	// for every rows
+	//for every rows
 	int i;
 	for (i = 0; i < n; i++)
 		{
-		//printf("start row #%d\n", i);
-		//count 1's (number of outlinks)
+		//1 count 1's in the row (number of outlinks)
 		count = 0;
-
 		int j;
 		for (j = 0; j < n; j++)
 			{
@@ -181,12 +178,11 @@ void generateTPMatrix(double** matrix, int n) {
 					count++;
 					} // if
 				}//for every columns
-			//test
 		//printf("count: %d\n", count);
 
 
-		// update weights
-		// if no outlink
+		//2 update weights
+		//2-1 if no outlink
 		if (count == 0)
 			//distribute 1/n
 			{
@@ -196,27 +192,22 @@ void generateTPMatrix(double** matrix, int n) {
 					matrix[i][j] = 1.0 / n;
 					//printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
 					}
+			}// if no outlink
 
-			}
-
-		// else (there is outlink)
+		//2-2 else (there exists outlink)
 		else
 			{
-			//distribute 1/outlinks
-
-			//if (matrix[i][j] == 1)
+			//for outlinks
 			int h;
 			for (h = 0; h < count; h++)
 				{
 					matrix[i][oneLocations[h]] = 1.0 / count;
 				}
 			//printf("matrix[%d][%d] = %f\n", i, oneLocations[h], \
-																								matrix[i][oneLocations[h]]);
-
+			//																					matrix[i][oneLocations[h]]);
 			}//else
-
 		}//for every rows
-}
+}//generateTPMatrix
 
 // Returns a vector that contains the PageRank scores for each page i
 // double* vector: vec(R)
