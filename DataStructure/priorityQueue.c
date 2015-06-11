@@ -22,7 +22,7 @@ int compareCust (void* cust1, void* cust2);
 void processPQ (HEAP* heap);
 char menu (void);
 CUST* getCust (void);
-void printSerial (void* cust);
+void traverse (HEAP* heap);
 
 int main (void)
 {
@@ -74,8 +74,6 @@ void processPQ (HEAP* prQueue)
 	bool result;
 	char option;
 	int numCusts = 0;
-	int i;
-
 
 	//Algorithms
 	do
@@ -85,38 +83,39 @@ void processPQ (HEAP* prQueue)
 			{
 			//enter
 			case 'e':
-			cust = getCust ();
-			numCusts++;
-			cust->serial = cust->priority * 1000 + (1000 - numCusts);
+				cust = getCust ();
+				numCusts++;
+				cust->serial = cust->priority * 1000 + (1000 - numCusts);
 
-			result = heapInsert (prQueue, cust);
-			if (!result)
-				printf("Error inserting into heap\n"), exit (101);
-			break;
+				result = heapInsert (prQueue, cust);
+				printf("\nCustomers waiting: \n");
+				traverse (prQueue);
+
+				if (!result)
+					printf("Error inserting into heap\n"), exit (101);
+				break;
 
 
 			//delete
 			case 'd':
-			result = heapDelete (prQueue, (void**)&cust);
+				result = heapDelete (prQueue, (void**)&cust);
 
-			if (!result)
-				printf("Error: customer not found\n");
-			else
-				{
-				printf("Customer %4d deleted\n", cust->id);
-				numCusts--;
-				}	//else
+				if (!result)
+					printf("Error: customer not found\n");
+				else
+					{
+					printf("Customer %4d deleted\n", cust->id);
+					numCusts--;
 
-			//traverse
+					//show left overs
+					printf("\nCustomers waiting: \n");
+					traverse (prQueue);
+					}//else
+				break;
+
 			case 't':
-			printf("TRAVERSE\n");
-			printf("size: %4d\n", prQueue->size);
-			for (i = 1; i < prQueue->size; i++)
-				{
-				printf("traverse\n");
-				cust = (CUST*) prQueue->heapAry[i];
-				printf("%d\n", cust->serial);
-				}
+				printf("\nCustomers waiting: \n");
+				traverse (prQueue);
 			}	//switch
 		} while (option != 'q');
 	return;
@@ -134,7 +133,7 @@ char menu (void)
 	printf("\n=========== Menu ==========\n");
 	printf(" e : Enter Customer Flight\n");
 	printf(" d : Delete Customer Flisht\n");
-	printf(" t : Traverse the Customer Serial Number\n");
+	//printf(" t : Traverse.\n");
 	printf(" q : Quit.\n");
 	printf("==========================\n");
 	printf("Please enter your choice:  ");
@@ -180,16 +179,19 @@ CUST* getCust (void)
 	return cust;
 	}
 
+/* =========== traverse =========== */
+void traverse (HEAP* heap) {
+	//data structure
+	CUST cust;
 
-/* ========= printSerial ========== */
-void printSerial (void* cust)
-	{
-		int serial;
-		CUST c;
+	//algorithms
+	//heapAry = heap->heapAry;
 
-		//statements
-		c = *(CUST*) cust;
-		serial = c.serial;
+	int i;
+	for (i = 0; i < heap->size; i++)
+		{
+			cust = *(CUST*)heap->heapAry[i];
+			printf("at %d, %d\n", i, cust.serial);
+		}
 
-		printf("%d", serial);
-	}
+}

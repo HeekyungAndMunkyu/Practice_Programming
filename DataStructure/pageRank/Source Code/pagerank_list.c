@@ -194,20 +194,21 @@ double* calculatePageRank(double* vector, P_IALIST invAdjLists, int n, double d,
 	int m;
 	for (m = 0; m < numIteration; m++)
 		{
-		//for vertex
+		//for every vertex
 		int i;
 		for (i = 0; i < n; i++)
 			{
-			printf("\n\nfor %d\n", i);
+			//printf("\n\nfor %d\n", i);
+
+			//Calculate page rank
 			//initialize rank = 0.0
 			rank = 0.0;
-
-			//for inlink vertex
+			//for every inlink
 			node = invAdjLists[i].first;
 			while (node != NULL)
 				{
-				printf("	inlink: %d\n", node->pageID);
-				//rank += weight/outlinks
+				//printf("	inlink: %d\n", node->pageID);
+				//rank += inlink's weight /inlink's outlinks
 				rank += vector[node->pageID] / invAdjLists[node->pageID].numOutlinks;
 				node = node->link;
 				}
@@ -215,9 +216,9 @@ double* calculatePageRank(double* vector, P_IALIST invAdjLists, int n, double d,
 			rank = d * rank + (1.0 - d) * (1.0 / n);
 			//assign rank to tempVector
 			tempVector[i] = rank;
-			}
-		//assign tempVector to vertex node
+			} //for every vertex
 
+		//Assign tempVector to vertex node
 		for (i = 0; i< n; i++)
 			{
 				vector[i] = tempVector[i];

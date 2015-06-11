@@ -30,17 +30,17 @@ int main (void)
 
 	//Algorithms
 	printf("Begin Priority Queue Demonstration\n");
-	
+
 	prQueue = heapCreate (maxQueue, compareCust);
 	processPQ (prQueue);
 
 	printf("End Priority Queue Demonstration\n");
-	
+
 	return 0;
 }	// main
 
 
-/* ========== compareCust ========= 
+/* ========== compareCust =========
 	Compare priority based on serial
 		Pre Given two CUST
 		Post if cust1 > cust2 return +1
@@ -82,27 +82,27 @@ void processPQ (HEAP* prQueue)
 			{
 			//enter
 			case 'e':
-			cust = getCust ();
-			numCusts++;
-			cust->serial = cust->priority * 1000 + (1000 - numCusts);
+				cust = getCust ();
+				numCusts++;
+				cust->serial = cust->priority * 1000 + (1000 - numCusts);
 
-			result = heapInsert (prQueue, cust);
-			if (!result)
-				printf("Error inserting into heap\n"), exit (101);
-			break;
-			
+				result = heapInsert (prQueue, cust);
+				if (!result)
+					printf("Error inserting into heap\n"), exit (101);
+				break;
+
 
 			//delete
 			case 'd':
-			result = heapDelete (prQueue, (void**)&cust);
+				result = heapDelete (prQueue, (void**)&cust);
 
-			if (!result)
-				printf("Error: customer not found\n");
-			else
-				{
-				printf("Customer %4d deleted\n", cust->id);
-				numCusts--;
-				}	//else
+				if (!result)
+					printf("Error: customer not found\n");
+				else
+					{
+					printf("Customer %4d deleted\n", cust->id);
+					numCusts--;
+					}	//else
 			}	//switch
 		} while (option != 'q');
 	return;
@@ -128,7 +128,7 @@ char menu (void)
 		{
 		scanf("%c", &option);
 		option = tolower (option);
-		
+
 		switch (option)
 			{
 			case 'e':
@@ -146,7 +146,7 @@ char menu (void)
 
 
 /* ========== getCust ========= */
-CUST* getCust (void)	
+CUST* getCust (void)
 	{
 	//Data Structure
 	CUST* cust;
@@ -155,11 +155,11 @@ CUST* getCust (void)
 	cust = (CUST*) malloc (sizeof (CUST));
 	if (!cust)
 		printf("Memory overflow in getCust\n"), exit (200);
-	
+
 	printf("Enter customer id:  ");
 	scanf("%d", &cust->id);
 	printf("Enter customer priority:  ");
 	scanf("%d", &cust->priority);
-	
+
 	return cust;
 	}

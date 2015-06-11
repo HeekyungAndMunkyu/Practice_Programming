@@ -2,25 +2,18 @@
 #include "stackADT.h"
 
 //Data Structure
-typedef struct
-  {
-  void* dataPtr;
-  int processed; //0 = not processed, 1 = pushed to stack, 2 = popped out of stack
-  } VERTEX;
-
-typedef struct
-  {
-  int count;
-  int rootLoc;
+typedef struct {
+  void** vertex;
+  void** processed;
+  void** adjacencyMatrix;
+  int size;
+  int maxsize;
   int (*compare) (void* argu1, void* argu2);
-  void* vertexVector; // later, VERTEX vertexVector [numVertex]
-  void* adjacencyMatrix; // later, int adjacencyMatrix [numVertex][numVertex]
-  } GRAPH;
-
+} GRAPH;
 
 
 //Algorithms
-graphCreate
+GRAPH* graphCreate (int maxsize, int (*compare) (void* argu1, void* argu2))
 graphDestory
 
 graphAddVertex
@@ -58,9 +51,9 @@ void graphDFTraverse (GRAPH* graph)
               if (processed[i] == 0)
                 //pushStack (stack, newNum)
                 pushStack (stack, i);
-              
+
               }
-        
+
           }
       else
           {
@@ -77,7 +70,7 @@ void graphDFTraverse (GRAPH* graph)
           }//else
       }// while not all popped out of stack (not all 2)
   }
-  
+
 /* ==========  ========== */
 /* ==========  ========== */
 /* ==========  ========== */

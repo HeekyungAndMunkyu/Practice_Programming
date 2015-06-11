@@ -21,21 +21,26 @@ printf("Begin BST Demonstration\n");
 BSTRoot = BST_Create (compareInt);
 
 // Build Tree
-printf("Enter a list of positive integers;\n");
-printf("Enter a negative number to stop.\n");
-printf("Enter 0 to delete a number\n");
+
 
 do
 	{
-	printf("Enter a number: ");
+	printf("\nEnter a list of positive integers:\n");
+	printf("\t\tTo stop, enter a negative integer.\n");
+	printf("\t\tTo delete a number, enter 0.\n");
+	printf("\nEnter a number: ");
 	scanf("%d", &dataIn);
 	if (dataIn == 0)
 		{
-			printf("Enter a number you want to delete:\n");
+			printf("\t\tWhat number do you want to delete? Enter: \n");
 			scanf("%d", &delKey);
 			BST_Delete (BSTRoot, &delKey);
+
+			printf("\tNow in BST: \n");
+			BST_Traverse (BSTRoot, printBST);
 		}
-	if (dataIn > -1)
+
+	if (dataIn > 0)
 		{
 		dataPtr = (int*) malloc (sizeof (int));
 		if (!dataPtr)
@@ -45,6 +50,10 @@ do
 			}// if overflow
 		*dataPtr = dataIn;
 		BST_Insert (BSTRoot, dataPtr);
+
+		printf("\tNow in BST: \n");
+		BST_Traverse (BSTRoot, printBST);
+
 		}// valid data
 	} while (dataIn > -1);
 

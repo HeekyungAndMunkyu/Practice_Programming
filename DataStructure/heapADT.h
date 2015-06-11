@@ -90,7 +90,7 @@ static void _reheapUp (HEAP* heap, int childLoc)
 		{
 		heapAry = heap->heapAry;
 		parent = (childLoc - 1) / 2;
-		
+
 		if (heap->compare (heapAry[childLoc], heapAry[parent]) > 0)
 			// child > parent -- swap
 			{
@@ -119,7 +119,7 @@ heap->heapAry[0] = heap->heapAry[heap->last];
 _reheapDown (heap, 0);
 return true;
 }
-	
+
 
 /* ========== _reheapDown ========== */
 static void _reheapDown (HEAP* heap, int root)
@@ -133,17 +133,17 @@ static void _reheapDown (HEAP* heap, int root)
 
 //Algorithms
 	last = heap->last;
-	
+
 	// if left subtree exists
-	if (root * 2 + 1 >= last)
+	if ((root * 2 + 1) <= last)
 		{
 		leftData = heap->heapAry[root * 2 + 1];
 		// if right subtree exists
-		if (root * 2 + 2 >= last)	
+		if ((root * 2 + 2) <= last)
 		        rightData = heap->heapAry[root * 2 + 2];
 		else
 			rightData = NULL;
-		
+
 		// decide largeLoc
 		// If no right data or left data is greater
 		if ((!rightData) || heap->compare (leftData, rightData) > 0)

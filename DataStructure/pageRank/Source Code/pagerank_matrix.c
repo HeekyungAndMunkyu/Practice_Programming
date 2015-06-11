@@ -157,34 +157,32 @@ void loadAdjacencyMatrix(char* inputFile, double** matrix) {
 // int n: number of rows (of columns) in the matrix
 void generateTPMatrix(double** matrix, int n) {
 	// ASSIGNMENT FUNCTION NO.1
-	// PLEASE IMPLEMENT THE BODY
 	//data structure
 	int count;
+	int oneLocations [n];
 
 	//algorithms
-	// for every rows
+	//for every rows
 	int i;
 	for (i = 0; i < n; i++)
 		{
-		printf("start row #%d\n", i);
-		//count 1's (number of outlinks)
+		//1 count 1's in the row (number of outlinks)
 		count = 0;
-
 		int j;
 		for (j = 0; j < n; j++)
 			{
-				printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
+				//printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
 				if (matrix[i][j] == 1)
 					{
+					oneLocations[count] = j;
 					count++;
 					} // if
 				}//for every columns
-			//test
-		printf("count: %d\n", count);
+		//printf("count: %d\n", count);
 
 
-		// update weights
-		// if no outlink
+		//2 update weights
+		//2-1 if no outlink
 		if (count == 0)
 			//distribute 1/n
 			{
@@ -192,28 +190,24 @@ void generateTPMatrix(double** matrix, int n) {
 				for (j = 0; j < n; j++)
 					{
 					matrix[i][j] = 1.0 / n;
-					printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
+					//printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
 					}
+			}// if no outlink
 
-			}
-
-		// else (there is outlink)
+		//2-2 else (there exists outlink)
 		else
 			{
-			//distribute 1/outlinks
-				int j;
-				for (j = 0; j < n; j++)
-					{
-						if (matrix[i][j] == 1)
-							matrix[i][j] = 1.0 / count;
-							printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
-
-					}//for
-
+			//for outlinks
+			int h;
+			for (h = 0; h < count; h++)
+				{
+					matrix[i][oneLocations[h]] = 1.0 / count;
+				}
+			//printf("matrix[%d][%d] = %f\n", i, oneLocations[h], \
+			//																					matrix[i][oneLocations[h]]);
 			}//else
-
 		}//for every rows
-}
+}//generateTPMatrix
 
 // Returns a vector that contains the PageRank scores for each page i
 // double* vector: vec(R)
@@ -245,23 +239,18 @@ double* calculatePageRank(double* vector, double** matrix, int n, double d, \
 				{
 				//add rank/outbound links to rank
 				rank += vector[i] * matrix[i][j];
-
-				//test
-				printf("%f * %f -> %f\n", vector[i], matrix[i][j], rank);
-				//
-
+				//printf("%f * %f -> %f\n", vector[i], matrix[i][j], rank);
 				}
-
-
-
 			//multiply by d, add (1-d)*(1/n)
 			rank = d * rank + (1.0 - d) * (1.0 / n);
-			printf("multiplied by d and etc, %f\n", rank);
-			//assign to vector
+			//printf("multiplied by d and etc, %f\n", rank);
+
+			//Assign to vector
 			tempVector[j] = rank;
-			printf("in vector[%d], %f\n\n", j, vector[j]);
+			//printf("in vector[%d], %f\n\n", j, vector[j]);
 			}// for all columns
 
+		//Simultaneously update vector
 		int i;
 		for (i = 0; i< n; i++)
 			{
