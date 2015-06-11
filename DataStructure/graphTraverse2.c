@@ -61,7 +61,7 @@ int main (void)
         //test
         int h;
         for (h = 0; h <graph->size; h++)
-          printf("\n%d", graph->vector[h]);
+          printf("\nat %d, %d", h, graph->vector[h]);
 
         break;
 
@@ -192,7 +192,7 @@ void graphDFTraverse (GRAPH* graph)
         loc = *(int*) popStack (stack);
         countDown--;
         //process vertex
-        printf("%d\n", graph->vector[loc]);
+        printf("at %d, %d\n", loc, graph->vector[loc]);
         processed [loc] = 2;
         //insert adjacency vertex if not in stack or not processed
         //for adjacency vertex
@@ -203,8 +203,11 @@ void graphDFTraverse (GRAPH* graph)
               {
                 //if not in stack or not processed
                 if (processed[j] == 0)
+                  {
+                  printf("%d has been pushed\n", j);
                   pushStack(stack, &j);
                   processed [j] = 1;
+                  }
               }
           }//for
         }//else
