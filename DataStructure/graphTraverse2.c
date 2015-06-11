@@ -54,7 +54,7 @@ int main (void)
       //1. receive vertex inputs
       case 'v':
         scanf("%d", &vertex);
-        addVertex (graph, &vertex);
+        //addVertex (graph, &vertex);
         break;
 
       //2. receive arc inputs
@@ -63,9 +63,10 @@ int main (void)
         scanf("%d", &fromData);
         printf("  To which number: \n");
         scanf("%d", &toData);
-        addArc (graph, &fromData, &toData);
+        //addArc (graph, &fromData, &toData);
         break;
       //3. graphDFTraverse
+
       //4. graphBFTraverse
       }//switch
     } while (option != 'q');
