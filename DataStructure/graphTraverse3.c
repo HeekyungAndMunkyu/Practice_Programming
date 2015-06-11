@@ -142,9 +142,9 @@ void addArc (GRAPH* graph, void* fromDataPtr, void* toDataPtr)
   //Algorithms
   from = *(int*)fromDataPtr;
   to = *(int*)toDataPtr;
-  printf("from %d, to %d\n", from, to);
-  printf("[%d][%d]\n", searchLoc(graph, &from),searchLoc(graph, &to));
-  printf("\n\n\n");
+  //printf("from %d, to %d\n", from, to);
+  //printf("[%d][%d]\n", searchLoc(graph, &from),searchLoc(graph, &to));
+  //printf("\n\n\n");
   graph->adjMatrix[searchLoc(graph, &from)][searchLoc(graph, &to)] = 1;
   return;
 }
@@ -217,15 +217,11 @@ void graphDFTraverse (GRAPH* graph)
                   printf("%d has been pushed\n", j);
 
                   processed [j] = 1;
-                  //test - popStack no problem
                   }
-                //test - popStack no problem
               }
           }//for
-          //test - popStack problem
         }//else
     }
-  //
   return;
 }
 
