@@ -22,6 +22,7 @@ int compareCust (void* cust1, void* cust2);
 void processPQ (HEAP* heap);
 char menu (void);
 CUST* getCust (void);
+void traverse (HEAP* heap);
 
 int main (void)
 {
@@ -87,6 +88,9 @@ void processPQ (HEAP* prQueue)
 				cust->serial = cust->priority * 1000 + (1000 - numCusts);
 
 				result = heapInsert (prQueue, cust);
+				printf("\nCustomers waiting: \n");
+				traverse (prQueue);
+
 				if (!result)
 					printf("Error inserting into heap\n"), exit (101);
 				break;
@@ -102,7 +106,18 @@ void processPQ (HEAP* prQueue)
 					{
 					printf("Customer %4d deleted\n", cust->id);
 					numCusts--;
-					}	//else
+
+					//show left overs
+					printf("\nCustomers waiting: \n");
+					traverse (prQueue);
+					}//else
+				break;
+
+			//traverse
+			case 't':
+				printf("\nCustomers waiting: \n");
+				traverse (prQueue);
+				break;
 			}	//switch
 		} while (option != 'q');
 	return;
@@ -120,6 +135,7 @@ char menu (void)
 	printf("\n=========== Menu ==========\n");
 	printf(" e : Enter Customer Flight\n");
 	printf(" d : Delete Customer Flisht\n");
+	printf(" t : Traverse.\n");
 	printf(" q : Quit.\n");
 	printf("==========================\n");
 	printf("Please enter your choice:  ");
@@ -133,6 +149,7 @@ char menu (void)
 			{
 			case 'e':
 			case 'd':
+			case 't':
 			case 'q': valid = true;
 					break;
 
@@ -163,3 +180,20 @@ CUST* getCust (void)
 
 	return cust;
 	}
+
+/* =========== traverse =========== */
+void traverse (HEAP* heap) {
+	//data structure
+	CUST cust;
+
+	//algorithms
+	//heapAry = heap->heapAry;
+
+	int i;
+	for (i = 0; i < heap->size; i++)
+		{
+			cust = *(CUST*)heap->heapAry[i];
+			printf("at %d, %d\n", i, cust.serial);
+		}
+
+}
