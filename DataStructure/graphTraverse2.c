@@ -30,18 +30,45 @@ int main (void)
   //Data structure
   GRAPH* graph;
   int maxSize = 4;
+  char option;
+  int vertex;
+  int fromData;
+  int toData;
 
   //Algorithms
   graph = (GRAPH*) createGraph (maxSize);
 
-  //Show options
-  //Receive option
-    //switch
-    //1. receive vertex inputs
-    //2. receive arc inputs
-    //3. graphDFTraverse
-    //4. graphBFTraverse
+  do
+    {
+    //Show options
+    //Receive option
+    printf("\nv : to receive vertex input\n");
+    printf("a : to receive arc input\n");
+    printf("d : to DFTraverse graph\n");
+    printf("b : to BFTraverse graph\n");
+    printf("q : to quit\n");
+    scanf("%s", &option);
+      //switch
+      switch (option)
+      {
+      //1. receive vertex inputs
+      case 'v':
+        scanf("%d", &vertex);
+        addVertex (graph, &vertex);
+        break;
 
+      //2. receive arc inputs
+      case 'a':
+        printf("  From which number: \n");
+        scanf("%d", &fromData);
+        printf("  To which number: \n");
+        scanf("%d", &toData);
+        addArc (graph, &fromData, &toData);
+        break;
+      //3. graphDFTraverse
+      //4. graphBFTraverse
+      }//switch
+    } while (option != 'q');
   return 0;
 }
 
