@@ -11,7 +11,7 @@
 
 //Data structure
 typedef struct {
-  void* vector;
+  int* vector;
   int** adjMatrix;
   int size;
   int maxSize;
@@ -23,7 +23,7 @@ void addVertex (GRAPH* graph, void* dataPtr);
 void addArc (GRAPH* graph, void* fromDataPtr, void* toDataPtr);
 void graphDFTraverse (GRAPH* graph);
 void graphBFTraverse (GRAPH* graph);
-
+int searchLoc (GRAPH* graph, void* dataPtr);
 
 int main (void)
 {
@@ -47,19 +47,21 @@ int main (void)
     printf("d : to DFTraverse graph\n");
     printf("b : to BFTraverse graph\n");
     printf("q : to quit\n");
+    printf("Please enter an option >>  ");
     scanf("%s", &option);
       //switch
       switch (option)
       {
       //1. receive vertex inputs
       case 'v':
+        printf("\n  What number to vertex?:");
         scanf("%d", &vertex);
-        //addVertex (graph, &vertex);
+        addVertex (graph, &vertex);
         break;
 
       //2. receive arc inputs
       case 'a':
-        printf("  From which number: \n");
+        printf("\n  From which number: \n");
         scanf("%d", &fromData);
         printf("  To which number: \n");
         scanf("%d", &toData);
@@ -107,6 +109,54 @@ GRAPH* createGraph (int maxSize)
 }
 
 /* =========== addVertex ========== */
+void addVertex (GRAPH* graph, void* dataPtr)
+{
+  //Data structure
+  int num;
+
+  //Algorithms
+  num = *(int*)dataPtr;
+
+  graph->vector[graph->size] = num;
+
+  return;
+}
+
 /* =========== addArc ========== */
+void addArc (GRAPH* graph, void* fromDataPtr, void* toDataPtr)
+{
+  //Data Structue
+  int from;
+  int to;
+
+  //Algorithms
+  from = *(int*)fromDataPtr;
+  to = *(int*)toDataPtr;
+
+  graph->adjMatrix[searchLoc(graph, &from)][searchLoc(graph, &to)] = 1; 
+  return;
+}
+
 /* =========== graphDFTraverse ========== */
 /* =========== graphBFTraverse ========== */
+/* =========== searchLoc ========== */
+int searchLoc (GRAPH* graph, void* dataPtr)
+{
+  //Data structure
+  int loc;
+  int data;
+
+  //Algorithms
+  data = *(int*) dataPtr;
+  int i;
+  for (i = 0; i < graph->size; i++)
+    {
+      if (graph->vector[i] == data)
+        {
+        loc = i;
+        break;
+        }//if
+    }//for
+
+  return loc;
+}
