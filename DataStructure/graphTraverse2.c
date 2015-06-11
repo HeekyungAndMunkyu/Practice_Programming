@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-//#include "stackADT.h"
+#include "stackADT.h"
 //#include "queueADT.h"
 
 //Data structure
@@ -57,6 +57,12 @@ int main (void)
         printf("\n  What number to vertex?:");
         scanf("%d", &vertex);
         addVertex (graph, &vertex);
+
+        //test
+        int h;
+        for (h = 0; h <graph->size; h++)
+          printf("\n%d", graph->vector[h]);
+
         break;
 
       //2. receive arc inputs
@@ -68,7 +74,10 @@ int main (void)
         //addArc (graph, &fromData, &toData);
         break;
       //3. graphDFTraverse
-
+      case 'd':
+        printf("\nDepth-first Traverse:\n");
+        graphDFTraverse (graph);
+        break;
       //4. graphBFTraverse
       }//switch
     } while (option != 'q');
@@ -118,6 +127,7 @@ void addVertex (GRAPH* graph, void* dataPtr)
   num = *(int*)dataPtr;
 
   graph->vector[graph->size] = num;
+  graph->size++;
 
   return;
 }
@@ -133,11 +143,76 @@ void addArc (GRAPH* graph, void* fromDataPtr, void* toDataPtr)
   from = *(int*)fromDataPtr;
   to = *(int*)toDataPtr;
 
-  graph->adjMatrix[searchLoc(graph, &from)][searchLoc(graph, &to)] = 1; 
+  graph->adjMatrix[searchLoc(graph, &from)][searchLoc(graph, &to)] = 1;
   return;
 }
 
 /* =========== graphDFTraverse ========== */
+void graphDFTraverse (GRAPH* graph)
+{
+  //Data Structure
+  STACK* stack;
+  int processed [graph->size];
+  int countDown = graph->size;
+  int loc;
+
+  //Algorithms
+  stack = createStack ();
+  int i;
+  for (i = 0; i < graph->size; i++)
+    {
+      processed [i] = 0;
+    }
+
+  //insert first vertex into stack
+  int first = 0;
+  pushStack (stack, &first);
+  processed[first] = 1;
+
+  //while not every vertex processed or in stack
+  while (countDown != 0)
+    {
+      //if empty stack
+      if (emptyStack (stack))
+        {
+        //serach 0 processed vector in processed
+        for (i = 0; i < graph->size; i++)
+          {
+            if (processed [i] == 0)
+              loc = i;
+          }
+        //pushStack
+        pushStack (stack, &i);
+        processed [i] = 1;
+        }//emptyStack
+      //else (not empty)
+      else
+        {
+        //popstack
+        loc = *(int*) popStack (stack);
+        countDown--;
+        //process vertex
+        printf("%d\n", graph->vector[loc]);
+        processed [loc] = 2;
+        //insert adjacency vertex if not in stack or not processed
+        //for adjacency vertex
+        int j;
+        for (j = 0; j < graph->size; j++)
+          {
+            if (graph->adjMatrix[loc][j] == 1)
+              {
+                //if not in stack or not processed
+                if (processed[j] == 0)
+                  pushStack(stack, &j);
+                  processed [j] = 1;
+              }
+          }//for
+        }//else
+    }
+  //
+  return;
+}
+
 /* =========== graphBFTraverse ========== */
 /* =========== searchLoc ========== */
 int searchLoc (GRAPH* graph, void* dataPtr)
