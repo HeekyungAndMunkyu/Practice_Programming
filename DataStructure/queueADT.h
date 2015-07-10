@@ -1,3 +1,6 @@
+#ifndef _QUEUE_H_
+#define _QUEUE_H_
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -58,7 +61,7 @@ QUEUE* destroyQueue (QUEUE* queue)
 
 		// statements
 		if (queue)
-			{	
+			{
 				while (queue->front != NULL)
 					{
 						free (queue->front->dataPtr);
@@ -121,7 +124,7 @@ bool enqueue (QUEUE* queue, void* itemPtr)
 }
 /* ============ queueFront ============= */
 bool queueFront (QUEUE* queue, void** itemPtr)
-{	
+{
 	// statements
 	if (!queue->count)
 	{
@@ -156,7 +159,7 @@ int queueCount (QUEUE* queue)
 }
 /* ============ emptyQueue ============= */
 bool emptyQueue (QUEUE* queue)
-	{	
+	{
 		return (queue->count == 0);
 	}	// emptyQueue
 
@@ -174,3 +177,5 @@ bool fillQueue (QUEUE* queue)
 	}	// if
 	return false;
 }	// fillQueue
+
+#endif

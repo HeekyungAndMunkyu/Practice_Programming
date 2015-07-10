@@ -1,12 +1,15 @@
+#ifndef _STACK_H_
+#define _STACK_H_
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
 // Structure Declarations
-typedef struct node
+typedef struct nodeS
   {
   void* dataPtr;
-  struct node* link;
+  struct nodeS* link;
   } STACK_NODE;
 
 typedef struct
@@ -184,3 +187,4 @@ STACK* destroyStack (STACK* stack)
 } // destoryStack
 
 
+#endif

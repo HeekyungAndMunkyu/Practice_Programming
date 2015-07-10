@@ -79,6 +79,11 @@ int main (void)
         graphDFTraverse (graph);
         break;
       //4. graphBFTraverse
+      case 'b':
+        printf("\nBreadth-first Traverse:\n");
+        graphBFTraverse (graph);
+        break;
+
       }//switch
     } while (option != 'q');
   return 0;
@@ -156,8 +161,9 @@ void graphDFTraverse (GRAPH* graph)
   STACK* stack;
   int processed [graph->size];
   int countDown = graph->size;
-  int loc1;
-  int loc2;
+  int* loc1;
+  int* loc2;
+  int* loc3;
 
   //Algorithms
   stack = createStack ();
@@ -175,7 +181,7 @@ void graphDFTraverse (GRAPH* graph)
   //while not every vertex processed or in stack
   while (countDown != 0)
     {
-      printf("stack Count: %d\n", stackCount (stack));
+      //printf("stack Count: %d\n", stackCount (stack));
       //popStack problem
       //if empty stack
       if (emptyStack (stack))
@@ -183,38 +189,44 @@ void graphDFTraverse (GRAPH* graph)
         //serach 0 processed vector in processed
         for (i = 0; i < graph->size; i++)
           {
-            printf("here %d\n", i);
+            //printf("here %d\n", i);
             if (processed [i] == 0)
-              loc1 = i;
+              {
+              loc1 = (int*) malloc (sizeof(int));
+              *loc1 = i;
               break;
+              }
           }
         //pushStack
-        pushStack (stack, &loc1);
-        processed [loc1] = 1;
-        printf("%d pushed\n", loc1);
+
+        pushStack (stack, loc1);
+        processed [*loc1] = 1;
+        //printf("%d pushed\n", *loc1);
         }//emptyStack
       //else (not empty)
       else
         {
         //popstack
-        loc2 = *(int*) popStack (stack);
+        loc2 = (int*) popStack (stack);
         countDown--;
         //process vertex
-        printf("at %d, %d\n", loc2, graph->vector[loc2]);
-        processed [loc2] = 2;
+        printf("at %d, %d\n", *loc2, graph->vector[*loc2]);
+        processed [*loc2] = 2;
         //insert adjacency vertex if not in stack or not processed
         //for adjacency vertex
         int j;
         for (j = 0; j < graph->size; j++)
           {
-            if (graph->adjMatrix[loc2][j] == 1)
+            if (graph->adjMatrix[*loc2][j] == 1)
               {
-                printf("found adjacency node\n");
+                //printf("found adjacency node\n");
                 //if not in stack or not processed
                 if (processed[j] == 0)
                   {
-                  pushStack(stack, &j);
-                  printf("%d has been pushed\n", j);
+                  loc3 = (int*) malloc (sizeof(int));
+                  *loc3 = j;
+                  pushStack(stack, loc3);
+                  //printf("%d has been pushed\n", j);
 
                   processed [j] = 1;
                   }
@@ -232,8 +244,9 @@ void graphBFTraverse (GRAPH* graph)
     QUEUE* queue;
     int processed [graph->size];
     int countDown = graph->size;
-    int loc1;
-    int* loc2Ptr;
+    int* loc1;
+    int* loc2;
+    int* loc3;
 
     //Algorithms
     queue = createQueue ();
@@ -252,34 +265,42 @@ void graphBFTraverse (GRAPH* graph)
           //serach 0 processed vector in processed
           for (i = 0; i < graph->size; i++)
             {
-              printf("here %d\n", i);
+              //printf("here %d\n", i);
               if (processed [i] == 0)
-                loc1 = i;
+                {
+                loc1 = (int*) malloc (sizeof(int));
+                *loc1 = i;
                 break;
+                }
             }
           //enqueue
-          enqueue (queue, &loc1);
-          processed [loc1] = 1;
+
+          enqueue (queue, loc1);
+          processed [*loc1] = 1;
           }//emptyqueue
         //else (not empty)
         else
           {
           //popstack
-          dequeue (queue, (void*)&loc2Ptr);
+          dequeue (queue, (void*)&loc2);
+          //process vertex
+          printf("at %d, %d\n", *loc2, graph->vector[*loc2]);
           countDown--;
           //process vertex
-          processed [*loc2Ptr] = 2;
+          processed [*loc2] = 2;
           //insert adjacency vertex if not in stack or not processed
           //for adjacency vertex
           int j;
           for (j = 0; j < graph->size; j++)
             {
-              if (graph->adjMatrix[*loc2Ptr][j] == 1)
+              if (graph->adjMatrix[*loc2][j] == 1)
                 {
                   //if not in stack or not processed
                   if (processed[j] == 0)
                     {
-                    enqueue(queue, &j);
+                    loc3 = (int*) malloc (sizeof(int));
+                    *loc3 = j;
+                    enqueue(queue, loc3);
                     processed [j] = 1;
                     }
                 }
@@ -301,7 +322,7 @@ int searchLoc (GRAPH* graph, void* dataPtr)
   int i;
   for (i = 0; i < graph->size; i++)
     {
-      printf("\nin serachLoc, for %d\n", i);
+      //printf("\nin serachLoc, for %d\n", i);
       if (graph->vector[i] == data)
         {
         loc = i;
