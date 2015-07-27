@@ -1,0 +1,79 @@
+=== Run information ===
+
+Evaluator:    weka.attributeSelection.ReliefFAttributeEval -M -1 -D 1 -K 10
+Search:weka.attributeSelection.Ranker -T -1.7976931348623157E308 -N -1
+Relation:     train_stratified_balanced_click-weka.filters.unsupervised.attribute.Remove-R1
+Instances:    60000
+Attributes:   27
+              date_time
+              site_id
+              visitor_location_country_id
+              visitor_hist_starrating
+              visitor_hist_adr_usd
+              prop_country_id
+              prop_id
+              prop_starrating
+              prop_review_score
+              prop_brand_bool
+              prop_location_score1
+              prop_location_score2
+              prop_log_historical_price
+              position
+              price_usd
+              promotion_flag
+              srch_destination_id
+              srch_length_of_stay
+              srch_booking_window
+              srch_adults_count
+              srch_children_count
+              srch_room_count
+              srch_saturday_night_bool
+              srch_query_affinity_score
+              orig_destination_distance
+              random_bool
+              click_bool
+Evaluation mode:evaluate on all training data
+
+
+
+=== Attribute Selection on all input data ===
+
+Search Method:
+	Attribute ranking.
+
+Attribute Evaluator (supervised, Class (nominal): 27 click_bool):
+	ReliefF Ranking Filter
+	Instances sampled: all
+	Number of nearest neighbours (k): 10
+	Equal influence nearest neighbours
+
+Ranked attributes:
+ 0.03218079   14 position
+ 0.0061891    12 prop_location_score2
+ 0.00341967    8 prop_starrating
+ 0.00305543   17 srch_destination_id
+ 0.00256178    7 prop_id
+ 0.00250194   11 prop_location_score1
+ 0.00233241   25 orig_destination_distance
+ 0.0019485     9 prop_review_score
+ 0.00184184    1 date_time
+ 0.00145197    2 site_id
+ 0.00117954    6 prop_country_id
+ 0.00104072   13 prop_log_historical_price
+ 0.00082942    3 visitor_location_country_id
+ 0.00075333   10 prop_brand_bool
+ 0.00066415   24 srch_query_affinity_score
+ 0.00058833   16 promotion_flag
+ 0.00039333   23 srch_saturday_night_bool
+ 0.00038604   20 srch_adults_count
+ 0.00037011   18 srch_length_of_stay
+ 0.00024963   21 srch_children_count
+ 0.00019809   19 srch_booking_window
+ 0.00013384    5 visitor_hist_adr_usd
+ 0.00009394    4 visitor_hist_starrating
+ 0.00008333   26 random_bool
+ 0.0000219    22 srch_room_count
+-0.00000245   15 price_usd
+
+Selected attributes: 14,12,8,17,7,11,25,9,1,2,6,13,3,10,24,16,23,20,18,21,19,5,4,26,22,15 : 26
+

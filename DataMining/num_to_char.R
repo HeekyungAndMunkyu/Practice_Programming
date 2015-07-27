@@ -1,0 +1,6 @@
+stratified_1$prop_country_id = as.character(stratified_1$prop_country_id)
+str(stratified_1)
+write.csv(stratified_1, "train_june_no_comp_stratified_asFactor.csv", row.names = FALSE)
+stratified_1 = read.csv("train_june_no_comp_stratified_asFactor.csv", header = TRUE)
+str(stratified_1)
+stratified_1 = read.csv("train_june_no_comp_stratified_asFactor.csv", header = TRUE, colClasses=c("prop_country_id"="character"))
